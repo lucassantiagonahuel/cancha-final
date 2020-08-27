@@ -65,17 +65,19 @@
         <div class="col-md-6">
             <div class="card" >
                 <div class="card-body">
-                    <form>
+                    <form method="POST">
+                        {{ csrf_field() }}
+
                         <div class="form-group">
                             <label for="correo">CORREO</label>
-                            <input type="email" class="form-control" id="correo" aria-describedby="emailHelp" placeholder="Ingresar correo">
+                            <input type="email" class="form-control" name="correo" id="correo" aria-describedby="emailHelp" placeholder="Ingresar correo">
                         </div>
                         <div class="form-group">
                             <label for="password">Contraseña</label>
-                            <input type="password" class="form-control" id="password" placeholder="Ingresar contraseña">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Ingresar contraseña">
                         </div>
                         <div class="mt-5">
-                            <a href="{{url('/clientes')}}" class="btn btn-primary">INGRESAR</a>
+                            <button type="submit" class="btn btn-primary">INGRESAR</button>
                         </div>
                     </form>
                 </div>
