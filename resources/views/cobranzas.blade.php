@@ -86,8 +86,20 @@
 
 
   </ul>
+ 
+<div class="container" style="margin-top: 200px"> 
+    <div class="row">
+    </div>
     
-
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card" >
+                <div class="card-body">
+                    <h5 class="card-title">COBRANZAS</h5>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

@@ -86,8 +86,23 @@
 
 
   </ul>
+ 
+<div class="container" style="margin-top: 200px"> 
+    <div class="row">
+    </div>
     
-
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card" >
+                <div class="card-body">
+                    <h5 class="card-title">Soporte</h5>
+                    <p class="card-text">Lucas Nahuel 15540295</p>
+                    <p class="card-text">Alejandro Diaz 15546222</p>
+                    <p class="card-text">Mario Olivera 15609723</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
