@@ -9,7 +9,7 @@
   <div class="container" id="contenedor_view">
       <div class="row mt-3">
         <div class="col-12">
-          <h2 class="title-view">Cobranzas.</h2>
+          <h2 class="title-view">Cobranzas</h2>
         </div>
       </div>
 
