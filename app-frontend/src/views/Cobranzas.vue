@@ -17,7 +17,7 @@
         <div class="container" id="contenedor_view">
             <div class="row mt-3">
                 <div class="col-12">
-                    <h2 class="title-view">Inicio.</h2>
+                    <h2 class="title-view">Clientes.</h2>
                 </div>
             </div>
 
@@ -38,7 +38,7 @@ import HeaderApplication from '@/components/template/HeaderApplication.vue'
 import MenuAbajoApplication from '@/components/template/MenuAbajoApplication.vue'
 
 export default {
-    name: 'Home',
+    name: 'Cobranzas',
     components: {
         MenuApplicacion,
         HeaderApplication,

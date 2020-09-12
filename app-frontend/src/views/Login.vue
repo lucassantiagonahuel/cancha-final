@@ -17,7 +17,7 @@
         <div class="container" id="contenedor_view">
             <div class="row mt-3">
                 <div class="col-12">
-                    <h2 class="title-view">Inicio.</h2>
+                    <h2 class="title-view">Ingreso.</h2>
                 </div>
             </div>
 
@@ -35,14 +35,12 @@
 // @ is an alias to /src
 import MenuApplicacion from '@/components/template/MenuApplicacion.vue'
 import HeaderApplication from '@/components/template/HeaderApplication.vue'
-import MenuAbajoApplication from '@/components/template/MenuAbajoApplication.vue'
 
 export default {
-    name: 'Home',
+    name: 'Login',
     components: {
         MenuApplicacion,
-        HeaderApplication,
-        MenuAbajoApplication
+        HeaderApplication
     }
 }
 </script>

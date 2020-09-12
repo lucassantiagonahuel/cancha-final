@@ -11,12 +11,5 @@
 |
 */
 
-Route::any('/','LoginController@index');
-
-Route::any('/inicio','HomeController@index');
-Route::get('/clientes','ClientesController@index');
-Route::get('/turnos','TurnosController@index');
-Route::get('/cobranzas','CobranzasController@index');
-Route::get('/soporte', 'SoporteController@index');
 
 

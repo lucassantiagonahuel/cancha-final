@@ -38,7 +38,7 @@ import HeaderApplication from '@/components/template/HeaderApplication.vue'
 import MenuAbajoApplication from '@/components/template/MenuAbajoApplication.vue'
 
 export default {
-    name: 'Home',
+    name: 'Turnos',
     components: {
         MenuApplicacion,
         HeaderApplication,
