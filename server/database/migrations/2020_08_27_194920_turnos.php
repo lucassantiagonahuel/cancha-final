@@ -18,7 +18,8 @@ class Turnos extends Migration
             $table->integer("cliente_id")->unsigned();
             $table->foreign("cliente_id")->references("id")->on("clientes");
             $table->double("precio");
-            $table->datetime("fecha_hora");
+            $table->datetime("fecha_hora_desde");
+            $table->datetime("fecha_hora_hasta");
             $table->timestamps();
         });
     }

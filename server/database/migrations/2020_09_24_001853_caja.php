@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Cobranzas extends Migration
+class Caja extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class Cobranzas extends Migration
      */
     public function up()
     {
-        Schema::create('cobranzas', function (Blueprint $table) {
+        Schema::create('caja', function (Blueprint $table) {
             $table->increments("id");
-            $table->integer("cliente_id")->unsigned();
-            $table->foreign("cliente_id")->references("id")->on("clientes");
+            $table->string("descripcion",200);
+            $table->integer("id_turno")->unsigned();
+            $table->foreign("id_turno")->references("id")->on("turnos");
             $table->double("total");
-            $table->datetime("fecha_pago");
+            $table->datetime("fecha");
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class Cobranzas extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cobranzas');
+        Schema::dropIfExists('caja');
     }
 }
