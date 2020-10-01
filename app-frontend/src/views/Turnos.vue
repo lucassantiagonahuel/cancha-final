@@ -1,33 +1,107 @@
 <template>
 <div>
     <!-- MENU -->
-    <MenuApplicacion></MenuApplicacion>
+    <!--<MenuApplicacion></MenuApplicacion>-->
     <!-- FIN MENU -->
 
     <main id="main-wrapper">
 
         <!-- HEADER -->
-        <HeaderApplication></HeaderApplication>
+        <!--<HeaderApplication></HeaderApplication>-->
         <!-- FIN HEADER -->
 
         <!-- BOTTOM NAV -->
-        <MenuAbajoApplication></MenuAbajoApplication>
+        <!--<MenuAbajoApplication></MenuAbajoApplication>-->
         <!-- FIN BOTTOM NAV -->
 
         <div class="container" id="contenedor_view">
             <div class="row mt-3">
                 <div class="col-12">
-                    <h2 class="title-view">Inicio.</h2>
+                    <h2 class="title-view">Turnos.</h2>
                 </div>
             </div>
 
             <div class="row mt-3">
+                <div class="col-12 mb-3">
+                    <button class="btn btn-primary" @click="abrirModalAgregar()">
+                        Agregar
+                    </button>
+                </div>
                 <div class="col-12">
+                    <table class="table" id="listado">
+                        <thead>
+                            <tr>
+                                <th bgcolor="#FF3F2C"> Id </th>
+                                <th bgcolor="#FF3F2C"> Cliente </th>
+                                <th bgcolor="#FF3F2C"> Precio </th>
+                                <th bgcolor="#FF3F2C"> Desde </th>
+                                <th bgcolor="#FF3F2C"> Hasta </th>
+                                <th bgcolor="#FF3F2C"> Creación</th>
+                                <th bgcolor="#FF3F2C"> Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(turno,index) in turnos">
+                                <td>{{turno.id}}</td>
+                                <td>{{turno.clientes_nombre+" "+turno.clientes_apellido}}</td>
+                                <td>$ {{turno.precio}}</td>
+                                <td>{{turno.fecha_desde_esp}}</td>
+                                <td>{{turno.fecha_hasta_esp}}</td>
+                                <td>{{turno.fecha_creacion_esp}}</td>
+                                <td>
+                                    <button class="btn btn-info" @click="abrirModalEditar(turno.id)">Editar</button>
+                                    &nbsp;&nbsp;
+                                    <button class="btn btn-danger" @click="abrirModalEliminar(turno.id)">Eliminar</button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
 
     </main>
+
+    <b-modal id="modal_agregar" ref="modal_agregar" hide-footer title="Agregar">
+        <div class="d-block text-center">
+            <b-form-input v-model="cliente_id_agregar" placeholder="ID CLIENTE"></b-form-input>
+            <b-form-input v-model="precio_agregar" placeholder="PRECIO" class="mt-2"></b-form-input>
+            <b-form-input v-model="fecha_hora_desde_agregar" placeholder="FECHA HORA DESDE" class="mt-2"></b-form-input>
+            <b-form-input v-model="fecha_hora_hasta_agregar" placeholder="FECHA HORA HASTA" class="mt-2"></b-form-input>
+        </div>
+        <b-button class="mt-2" variant="outline-success" block @click="agregarTurno()">Guardar</b-button>
+    </b-modal>
+
+    <b-modal id="modal_editar" ref="modal_editar" hide-footer title="Editar">
+        <div class="d-block text-center">
+            <b-form-group label="Cliente:" label-for="input-vertical" label-align="left">
+                <b-form-input v-model="cliente_id_editar" placeholder="ID CLIENTE"></b-form-input>
+            </b-form-group>
+
+            <b-form-group label="Precio:" label-for="input-vertical" label-align="left">
+                <b-form-input v-model="precio_editar" placeholder="PRECIO" class="mt-2"></b-form-input>
+            </b-form-group>
+            </b-form-group>
+
+            <b-form-group label="DESDE:" label-for="input-vertical" label-align="left">
+                <b-form-input v-model="fecha_hora_desde_editar" placeholder="FECHA HORA DESDE" class="mt-2"></b-form-input>
+            </b-form-group>
+
+            <b-form-group label="HASTA:" label-for="input-vertical" label-align="left">
+                <b-form-input v-model="fecha_hora_hasta_editar" placeholder="FECHA HORA HASTA" class="mt-2"></b-form-input>
+            </b-form-group>
+        </div>
+        <b-button class="mt-2" variant="outline-success" block @click="editarTurno()">Guardar</b-button>
+    </b-modal>
+
+    <b-modal id="modal_eliminar" ref="modal_eliminar" hide-footer title="Eliminar">
+        <div class="d-block text-center">
+            <p>¿Esta seguro desea eliminar el registro seleccionado?</p>
+        </div>
+        <b-button class="mt-2" variant="outline-danger" block @click="eliminarTurno()">Aceptar</b-button>
+    </b-modal>
+
 </div>
 </template>
 
@@ -37,12 +111,175 @@ import MenuApplicacion from '@/components/template/MenuApplicacion.vue'
 import HeaderApplication from '@/components/template/HeaderApplication.vue'
 import MenuAbajoApplication from '@/components/template/MenuAbajoApplication.vue'
 
+import
+API_URL
+from '@/servicios/Api.js'
+
+const axios = require('axios');
+
 export default {
     name: 'Turnos',
     components: {
         MenuApplicacion,
         HeaderApplication,
         MenuAbajoApplication
+    },
+    data: function () {
+
+        return {
+            turnos: [],
+
+            cliente_id_agregar: "",
+            precio_agregar: "",
+            fecha_hora_desde_agregar: "",
+            fecha_hora_hasta_agregar: "",
+
+            cliente_id_editar: "",
+            precio_editar: "",
+            fecha_hora_desde_editar: "",
+            fecha_hora_hasta_editar: "",
+
+            id_a_editar: "",
+            id_a_eliminar: "",
+        }
+    },
+    methods: {
+
+        abrirModalAgregar() {
+
+            this.cliente_id_agregar = "";
+            this.precio_agregar = "";
+            this.fecha_hora_desde_agregar = "";
+            this.fecha_hora_hasta_agregar = "";
+
+            this.$refs['modal_agregar'].show()
+        },
+
+        agregarTurno: async function () {
+
+            let params = {
+                cliente_id: this.cliente_id_agregar,
+                precio: this.precio_agregar,
+                fecha_hora_desde: this.fecha_hora_desde_agregar,
+                fecha_hora_hasta: this.fecha_hora_hasta_agregar,
+            }
+
+            let response = await axios.post(API_URL + 'turnos/store', params);
+
+            let respuesta_servidor = response.data;
+
+            if (respuesta_servidor.response == true) {
+                this.$refs['modal_agregar'].hide()
+                this.listaTurnos();
+            } else {
+                let mensajes_errores = "";
+
+                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                }
+
+                alert(mensajes_errores);
+            }
+        },
+
+        abrirModalEditar: async function (id_a_editar) {
+
+            let params = {
+                id: id_a_editar,
+            }
+
+            let response = await axios.post(API_URL + 'turnos/get', params);
+
+            let respuesta_servidor = response.data;
+
+            if (respuesta_servidor.response == true) {
+                this.id_a_editar = id_a_editar;
+
+                this.cliente_id_editar = respuesta_servidor.data.cliente_id;
+                this.precio_editar = respuesta_servidor.data.precio;
+                this.fecha_hora_desde_editar = respuesta_servidor.data.fecha_desde_esp;
+                this.fecha_hora_hasta_editar = respuesta_servidor.data.fecha_hasta_esp;
+
+                this.$refs['modal_editar'].show()
+            } else {
+                let mensajes_errores = "";
+
+                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                }
+
+                alert(mensajes_errores);
+            }
+        },
+
+        editarTurno: async function () {
+
+            let params = {
+                id: this.id_a_editar,
+                cliente_id: this.cliente_id_editar,
+                precio: this.precio_editar,
+                fecha_hora_desde: this.fecha_hora_desde_editar,
+                fecha_hora_hasta: this.fecha_hora_hasta_editar,
+            }
+
+            let response = await axios.post(API_URL + 'turnos/edit', params);
+
+            let respuesta_servidor = response.data;
+
+            if (respuesta_servidor.response == true) {
+                this.$refs['modal_editar'].hide()
+                this.listaTurnos();
+            } else {
+                let mensajes_errores = "";
+
+                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                }
+
+                alert(mensajes_errores);
+            }
+        },
+
+        abrirModalEliminar(id_row_seleccionado) {
+
+            this.id_a_eliminar = id_row_seleccionado;
+            this.$refs['modal_eliminar'].show()
+        },
+
+        eliminarTurno: async function () {
+
+            let params = {
+                id: this.id_a_eliminar
+            }
+
+            let response = await axios.post(API_URL + 'turnos/delete', params);
+
+            let respuesta_servidor = response.data;
+
+            this.$refs['modal_eliminar'].hide();
+
+            if (respuesta_servidor.response == true) {
+                this.listaTurnos();
+            } else {
+                let mensajes_errores = "";
+
+                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                }
+
+                alert(mensajes_errores);
+            }
+        },
+
+        listaTurnos: async function () {
+
+            let params = {}
+            let response = await axios.post(API_URL + 'turnos', params);
+            this.turnos = response.data
+        }
+    },
+    mounted: function () {
+        this.listaTurnos();
     }
 }
 </script>
