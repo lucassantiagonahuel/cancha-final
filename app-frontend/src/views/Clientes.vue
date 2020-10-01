@@ -21,7 +21,8 @@
                 </div>
             </div>
 
-            <div class="row mt-3">
+            <div class="row mt-3">      
+                <button class="btn btn-primary"> Nuevo Cliente </button>                          
                 <div class="col-12">
                     <table class="table" id="listado">
                         <thead>
@@ -43,6 +44,8 @@
                                 <td>{{cliente.domicilio}}</td>
                                 <td>
                                     <button class="btn btn-info">Editar</button>
+                                        
+
                                     &nbsp;&nbsp;
                                     <button class="btn btn-danger" v-on:click="eliminarCliente">Eliminar</button>
                                 </td>
@@ -60,6 +63,12 @@
 
 <script>
 // @ is an alias to /src
+
+
+
+
+
+
 import MenuApplicacion from '@/components/template/MenuApplicacion.vue'
 import HeaderApplication from '@/components/template/HeaderApplication.vue'
 import MenuAbajoApplication from '@/components/template/MenuAbajoApplication.vue'
@@ -98,13 +107,13 @@ export default {
         },
 
         altaCliente: async function () {
-            let params = {
+           let params = {
                 nombre: "Pedro",
                 apellido: "Gomez",
-                telefono: "9999999",
+             telefono: "9999999",
                 domicilio: "Urquiza 100",
             }
-
+    
             let response = await axios.post(API_URL + 'clientes/store', params);
         },
 
@@ -154,4 +163,6 @@ export default {
         this.listaClientes();
     }
 }
+
+
 </script>
