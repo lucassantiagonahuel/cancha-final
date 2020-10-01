@@ -122,7 +122,7 @@ export default {
 
         obtenerCliente: async function () {
             let params = {
-                id: 1002,
+                id: 1,
             }
 
             let response = await axios.post(API_URL + 'clientes/get', params);
