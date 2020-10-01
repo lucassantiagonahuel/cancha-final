@@ -1,17 +1,17 @@
 <template>
 <div>
     <!-- MENU -->
-    <MenuApplicacion></MenuApplicacion>
+   <!-- <MenuApplicacion></MenuApplicacion>
     <!-- FIN MENU -->
 
     <main id="main-wrapper">
 
         <!-- HEADER -->
-        <HeaderApplication></HeaderApplication>
+   <!--     <HeaderApplication></HeaderApplication>
         <!-- FIN HEADER -->
 
         <!-- BOTTOM NAV -->
-        <MenuAbajoApplication></MenuAbajoApplication>
+   <!--     <MenuAbajoApplication></MenuAbajoApplication>
         <!-- FIN BOTTOM NAV -->
 
         <div class="container" id="contenedor_view">
