@@ -22,8 +22,9 @@
             </div>
 
             <div class="row mt-3">      
-                <button class="btn btn-primary"> Nuevo Cliente </button>                          
+                                          
                 <div class="col-12">
+                    <button class="btn btn-primary mb-3"> Nuevo Cliente </button>
                     <table class="table" id="listado">
                         <thead>
                             <tr>
@@ -36,7 +37,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(cliente,index) in clientes">
+                            <tr v-for="(cliente,index) in clientes" :key="cliente.id">
                                 <td>{{cliente.id}}</td>
                                 <td>{{cliente.nombre}}</td>
                                 <td>{{cliente.apellido}}</td>
@@ -110,7 +111,7 @@ export default {
            let params = {
                 nombre: "Pedro",
                 apellido: "Gomez",
-             telefono: "9999999",
+                telefono: "9999999",
                 domicilio: "Urquiza 100",
             }
     
@@ -131,7 +132,7 @@ export default {
 
         obtenerCliente: async function () {
             let params = {
-                id: 1,
+                id: 1002,
             }
 
             let response = await axios.post(API_URL + 'clientes/get', params);
