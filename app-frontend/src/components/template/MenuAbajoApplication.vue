@@ -8,8 +8,8 @@
         <img src="img/sport.svg"> Turnos
     </router-link>
 
-    <router-link to="/cobranzas" class="nav-item">
-        <img src="img/money.svg"> Cobranzas
+    <router-link to="/caja" class="nav-item">
+        <img src="img/money.svg"> Caja
     </router-link>
 </nav>
 </template>

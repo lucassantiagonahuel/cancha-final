@@ -6,7 +6,7 @@ import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
 import Clientes from '../views/Clientes.vue'
 import Turnos from '../views/Turnos.vue'
-import Cobranzas from '../views/Cobranzas.vue'
+import Caja from '../views/Caja.vue'
 
 Vue.use(VueRouter)
 
@@ -32,9 +32,9 @@ const routes = [
     component: Turnos
   },
   {
-    path: '/cobranzas',
-    name: 'Cobranzas',
-    component: Cobranzas
+    path: '/caja',
+    name: 'Caja',
+    component: Caja
   },
 ]
 

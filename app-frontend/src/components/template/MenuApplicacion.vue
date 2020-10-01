@@ -20,8 +20,8 @@
                     <img src="img/sport.svg">TURNOS
                 </router-link>
 
-                <router-link to="/cobranzas" class="nav-item nav-link">
-                    <img src="img/money.svg">COBRANZAS
+                <router-link to="/caja" class="nav-item nav-link">
+                    <img src="img/money.svg">CAJA
                 </router-link>
 
                 <router-link to="/inicio" class="nav-item nav-link">

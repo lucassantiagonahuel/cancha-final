@@ -22,7 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/','Api\LoginController@index');
 Route::post('/inicio','Api\HomeController@index');
 Route::post('/turnos','Api\TurnosController@index');
-Route::post('/cobranzas','Api\CobranzasController@index');
+Route::post('/caja','Api\CajaController@index');
 Route::post('/soporte', 'Api\SoporteController@index');
 
 
@@ -32,5 +32,12 @@ Route::post('/clientes/store','Api\ClientesController@store');
 Route::post('/clientes/get','Api\ClientesController@get');
 Route::post('/clientes/edit','Api\ClientesController@edit');
 Route::post('/clientes/delete','Api\ClientesController@delete');
+
+/**************** Caja *******************/
+Route::post('/caja','Api\CajaController@index');
+Route::post('/caja/store','Api\CajaController@store');
+Route::post('/caja/get','Api\CajaController@get');
+Route::post('/caja/edit','Api\CajaController@edit');
+Route::post('/caja/delete','Api\CajaController@delete');
 
 
