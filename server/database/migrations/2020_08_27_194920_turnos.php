@@ -15,7 +15,7 @@ class Turnos extends Migration
     {
         Schema::create('turnos', function (Blueprint $table) {
             $table->increments("id");
-            $table->integer("cliente_id")->unsigned();
+            $table->integer("cliente_id")->unsigned()->nullable();
             $table->foreign("cliente_id")->references("id")->on("clientes");
             $table->double("precio");
             $table->datetime("fecha_hora_desde");
