@@ -25,7 +25,6 @@ Route::post('/turnos','Api\TurnosController@index');
 Route::post('/caja','Api\CajaController@index');
 Route::post('/soporte', 'Api\SoporteController@index');
 
-
 /**************** CLIENTES *******************/
 Route::post('/clientes','Api\ClientesController@index');
 Route::post('/clientes/store','Api\ClientesController@store');
@@ -33,7 +32,7 @@ Route::post('/clientes/get','Api\ClientesController@get');
 Route::post('/clientes/edit','Api\ClientesController@edit');
 Route::post('/clientes/delete','Api\ClientesController@delete');
 
-/**************** Caja *******************/
+/**************** CAJA *******************/
 Route::post('/caja','Api\CajaController@index');
 Route::post('/caja/store','Api\CajaController@store');
 Route::post('/caja/get','Api\CajaController@get');
@@ -41,3 +40,9 @@ Route::post('/caja/edit','Api\CajaController@edit');
 Route::post('/caja/delete','Api\CajaController@delete');
 
 
+/**************** TURNOS *******************/
+Route::post('/turnos','Api\TurnosController@index');
+Route::post('/turnos/store','Api\TurnosController@store');
+Route::post('/turnos/get','Api\TurnosController@get');
+Route::post('/turnos/edit','Api\TurnosController@edit');
+Route::post('/turnos/delete','Api\TurnosController@delete');

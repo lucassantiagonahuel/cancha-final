@@ -1,18 +1,18 @@
 <template>
 <div>
-    <!-- MENU -->
-    <MenuApplicacion></MenuApplicacion>
-    <!-- FIN MENU -->
+//     <!-- MENU -->
+//    <!-- <MenuApplicacion></MenuApplicacion>
+//     <!-- FIN MENU -->
 
     <main id="main-wrapper">
 
-        <!-- HEADER -->
-        <HeaderApplication></HeaderApplication>
-        <!-- FIN HEADER -->
+//         <!-- HEADER -->
+//    <!--     <HeaderApplication></HeaderApplication>
+//         <!-- FIN HEADER -->
 
-        <!-- BOTTOM NAV -->
-        <MenuAbajoApplication></MenuAbajoApplication>
-        <!-- FIN BOTTOM NAV -->
+//         <!-- BOTTOM NAV -->
+//    <!--     <MenuAbajoApplication></MenuAbajoApplication>
+//         <!-- FIN BOTTOM NAV -->
 
         <div class="container" id="contenedor_view">
             <div class="row mt-3">
@@ -122,7 +122,7 @@ export default {
 
         obtenerCliente: async function () {
             let params = {
-                id: 1002,
+                id: 1,
             }
 
             let response = await axios.post(API_URL + 'clientes/get', params);
