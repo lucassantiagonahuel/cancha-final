@@ -27,27 +27,73 @@
                         Agregar
                     </button>
                 </div>
+              </div>  
+               
+               <div class="row mt-3">
+                <div class="col-4 mb-3">
+
+                    <b-card
+                        title="Ventas"
+                        class="mb-2"
+                    >
+                    <b-card-text>
+                        <h3>$120</h3>
+                    </b-card-text>
+
+                     </b-card>   
+                </div>
+                <div class="col-4 mb-3">
+
+                    <b-card
+                        title="Gastos"
+                        class="mb-2"
+                    >
+                    <b-card-text>
+                        <h3>$120</h3>
+                    </b-card-text>
+
+                     </b-card>   
+                </div>
+                <div class="col-4 mb-3">
+
+                    <b-card
+                        title="Ganancias"
+                        class="mb-2"
+                    >
+                    <b-card-text>
+                        <h3>$120</h3>
+                    </b-card-text>
+
+                     </b-card>   
+                </div>
+
+                </div>
+                <div class="row mt-3">
+
+
                 <div class="col-12">
                     <table class="table" id="listado">
                         <thead>
                             <tr>
                                 <th bgcolor="#FF3F2C"> Id </th>
                                 <th bgcolor="#FF3F2C"> Descripcion </th>
+                                <th bgcolor="#FF3F2C"> Turno </th>
                                 <th bgcolor="#FF3F2C"> Total </th>
                                 <th bgcolor="#FF3F2C"> Fecha </th>
                                 <th bgcolor="#FF3F2C"> Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(caja,index) in Caja">
-                                <td>{{caja.id}}</td>
-                                <td>{{caja.descripcion}}</td>
-                                <td>$ {{caja.total}}</td>
-                                <td>{{caja.fecha}}</td>
+                            <tr v-for="(row,index) in ListadoCaja">
+                                <td>{{row.id}}</td>
+                                <td>{{row.descripcion}}</td>
+                                <td>{{row.id_turno}}</td>
+                                <td>$ {{row.total}}</td>
+                                <td>{{row.fecha_caja}}</td>
                                 <td>
-                                    <button class="btn btn-info" @click="abrirModalEditar(caja.id)">Editar</button>
+                                    <button class="btn btn-info" @click="abrirModalEditar(row.id)">Editar</button>
                                     &nbsp;&nbsp;
-                                    <button class="btn btn-danger" @click="abrirModalEliminar(caja.id)">Eliminar</button>
+                                    <button class="btn btn-danger" @click="abrirModalEliminar(row.id)">Eliminar</button>
                                 </td>
                             </tr>
 
@@ -61,7 +107,6 @@
 
     <b-modal id="modal_agregar" ref="modal_agregar" hide-footer title="Agregar">
         <div class="d-block text-center">
-            <b-form-input v-model="caja_id_agregar" placeholder="ID CLIENTE"></b-form-input>
             <b-form-input v-model="descripcion_agregar" placeholder="DESCRIPCION" class="mt-2"></b-form-input>
             <b-form-input v-model="total_agregar" placeholder="TOTAL" class="mt-2"></b-form-input>
             <b-form-input v-model="fecha_agregar" placeholder="FECHA" class="mt-2"></b-form-input>
@@ -123,7 +168,7 @@ export default {
     data: function () {
 
         return {
-            Caja: [],
+            ListadoCaja: [],
 
             caja_id_agregar: "",
            descripcion_agregar: "",
@@ -154,7 +199,6 @@ export default {
         agregarCaja: async function () {
 
             let params = {
-                caja_id: this.caja_id_agregar,
                 descripcion: this.descripcion_agregar,
                 total: this.total_agregar,
                 fecha: this.fecha_agregar,
@@ -166,7 +210,7 @@ export default {
 
             if (respuesta_servidor.response == true) {
                 this.$refs['modal_agregar'].hide()
-                this.listaTurnos();
+                this.listaCaja();
             } else {
                 let mensajes_errores = "";
 
@@ -271,7 +315,7 @@ export default {
 
             let params = {}
             let response = await axios.post(API_URL + 'caja', params);
-            this.caja = response.data
+            this.ListadoCaja = response.data
         }
     },
     mounted: function () {

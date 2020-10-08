@@ -10,18 +10,15 @@ use App\Library\ResponseEstructure;
 
 use App\Caja;
 
-class TurnosController extends Controller
+class CajaController extends Controller
 {
     public function index(Request $request)
     {
         $caja = DB::table("caja")
         ->select(
             "caja.*",
-            "caja.descripcion as caja_descripcion",
-            "caja.total as caja_total",
             DB::raw("DATE_FORMAT(caja.fecha,'%d/%m/%Y %H:%i') as fecha_caja")
         )
-        ->leftJoin("caja","caja.id","=","caja.caja_id")
         ->orderBy("caja.id","desc")
         ->get();
 
@@ -33,7 +30,6 @@ class TurnosController extends Controller
         $response_estructure = new ResponseEstructure();
         $response_estructure->set_response(false);
 
-        $caja_id = strtolower(trim($request->input("caja_id")));
         $descripcion = strtolower(trim($request->input("descripcion")));
         $total = strtolower(trim($request->input("total")));
         $fecha = strtolower(trim($request->input("fecha")));
@@ -46,11 +42,10 @@ class TurnosController extends Controller
         if($response_estructure->get_response() == true)
         {
             $caja_row = new Caja();
-            $caja_row->caja_id = $caja_id ;
             $caja_row->descripcion = $descripcion;
             $caja_row->total = $total;
             $caja_row->fecha = $fecha;
-            $turno_row->save();
+            $caja_row->save();
 
             $response_estructure->set_response(true);
         }
