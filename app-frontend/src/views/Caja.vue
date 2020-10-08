@@ -123,7 +123,6 @@
             <b-form-group label="DESCRIPCION:" label-for="input-vertical" label-align="left">
                 <b-form-input v-model="descripcion_editar" placeholder="DESCRIPCION" class="mt-2"></b-form-input>
             </b-form-group>
-            </b-form-group>
 
             <b-form-group label="TOTAL:" label-for="input-vertical" label-align="left">
                 <b-form-input v-model="total_editar" placeholder="TOTAL" class="mt-2"></b-form-input>
@@ -222,6 +221,9 @@ export default {
             }
         },
 
+
+
+
         abrirModalEditar: async function (id_a_editar) {
 
             let params = {
@@ -235,10 +237,10 @@ export default {
             if (respuesta_servidor.response == true) {
                 this.id_a_editar = id_a_editar;
 
-                this.caja_id_editar = respuesta_servidor.data.caja_id;
+                this.caja_id_editar = respuesta_servidor.data.id;
                 this.descripcion_editar = respuesta_servidor.data.descripcion;
-                this.total_editar = respuesta_servidor.data.fecha_desde_esp;
-                this.fecha_hora_hasta_editar = respuesta_servidor.data.fecha_hasta_esp;
+                this.total_editar = respuesta_servidor.data.total;
+                this.fecha_editar = respuesta_servidor.data.fecha;
 
                 this.$refs['modal_editar'].show()
             } else {
@@ -252,13 +254,12 @@ export default {
             }
         },
 
-        editarTurno: async function () {
+        editarCaja: async function () {
 
             let params = {
-                id: this.id_a_editar,
-                cliente_id: this.cliente_id_editar,
-                precio: this.precio_editar,
-                total: this.fecha_hora_desde_editar,
+                id: this.caja_id_editar,
+               descripcion: this.descripcion_editar,
+                total: this.total_editar,
                 fecha: this.fecha_editar,
             }
 
@@ -280,13 +281,19 @@ export default {
             }
         },
 
+
+
+
+
+
+
         abrirModalEliminar(id_row_seleccionado) {
 
             this.id_a_eliminar = id_row_seleccionado;
             this.$refs['modal_eliminar'].show()
         },
 
-        eliminarTurno: async function () {
+        eliminarCaja: async function () {
 
             let params = {
                 id: this.id_a_eliminar

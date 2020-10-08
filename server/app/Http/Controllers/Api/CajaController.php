@@ -64,7 +64,6 @@ class CajaController extends Controller
 
         if($caja_row)
         {
-            $caja_id = strtolower(trim($request->input("caja_id")));
             $descripcion = strtolower(trim($request->input("descripcion")));
             $total = strtolower(trim($request->input("total")));
             $fecha = strtolower(trim($request->input("fecha")));
@@ -72,7 +71,6 @@ class CajaController extends Controller
             $fecha = \DateTime::createFromFormat("d/m/Y H:i",$fecha);
             $fecha = $fecha->format("Y-m-d H:i:s");
 
-            $caja_row->caja_id = $caja_id ;
             $caja_row->descripcion = $descripcion;
             $caja_row->total= $total;
             $caja_row->fecha= $fecha;
@@ -94,11 +92,8 @@ class CajaController extends Controller
         $caja_row = $caja = DB::table("caja")
         ->select(
             "caja.*",
-            "caja.descripcion as caja_descripcion",
-            "caja.total as caja_total",
             DB::raw("DATE_FORMAT(caja.fecha,'%d/%m/%Y %H:%i') as fecha")
         )
-        ->leftJoin("caja","caja.id","=","caja.cliente_id")
         ->where("caja.id",$id)
         ->get();
 
