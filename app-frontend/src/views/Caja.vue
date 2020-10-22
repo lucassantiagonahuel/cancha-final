@@ -17,7 +17,7 @@
 
             <div class="row mt-3">
                 <div class="col-12 mb-3">
-                    <button class="btn btn-primary" @click="abrirModalAgregar()">
+                    <button class="btn btn-danger" @click="abrirModalAgregar()">
                         Agregar
                     </button>
                 </div>
@@ -30,16 +30,16 @@
 
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label for="fecha_desde">Desde</label>
+                                        <label for="fecha_desde"><strong>Desde</strong></label>
                                         <input type="text" class="form-control" id="fecha_desde" v-model="fechaDesdeFiltro">
                                     </div>
                                     <div class="col-md-2">
-                                        <label for="fecha_hasta">Hasta</label>
+                                        <label for="fecha_hasta"><strong>Hasta</strong></label>
                                         <input type="text" class="form-control" id="fecha_hasta" v-model="fechaHastaFiltro">
                                     </div>
                                     <div class="col-md-1">
                                         <label for="">&nbsp;</label><br>
-                                        <button type="submit" class="btn btn-danger">Filtrar</button>
+                                        <button type="submit" class="btn btn-outline-danger">Filtrar</button>
                                     </div>
                                 </div>
                             </form>
