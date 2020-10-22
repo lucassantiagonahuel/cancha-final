@@ -18,6 +18,13 @@
                     </button>
                 </div>
                 <div class="col-12">
+                    <div>
+                        <b-card title="Filtro">
+                        </b-card>
+                    </div>
+                </div>
+
+                <div class="col-12 mt-2">
                     <table class="table" id="listado">
                         <thead>
                             <tr>
