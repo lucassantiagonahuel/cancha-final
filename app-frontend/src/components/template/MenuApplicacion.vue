@@ -1,36 +1,44 @@
 <template>
-<div id="menu">
-    <div aria-hidden="true" class="navdrawer" id="menu_lateral" tabindex="-1">
-        <div class="navdrawer-content">
-            <div class="navdrawer-header">
-                <img src="img/logo.png" alt="" style="width: 100px;">
-                <p>CLUB ATLETICO INDEPENDIENTE</p>
-            </div>
-            <nav class="navdrawer-nav">
+<div>
+    <b-navbar toggleable="lg" type="dark" variant="info" style="background-color: #000 !important;">
+        <b-navbar-brand href="#">
+            <router-link to="/" class="nav-item nav-link">
+                <img src="img/logo.png" alt="" style="width: 50px;">
+            </router-link>
+        </b-navbar-brand>
 
+        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+        <b-collapse id="nav-collapse" is-nav>
+            <b-navbar-nav>
                 <router-link to="/inicio" class="nav-item nav-link">
-                    <img src="img/home-run.svg">INICIO
+                    INICIO
                 </router-link>
 
                 <router-link to="/clientes" class="nav-item nav-link">
-                    <img src="img/customer.svg">CLIENTES
+                    CLIENTES
                 </router-link>
 
                 <router-link to="/turnos" class="nav-item nav-link">
-                    <img src="img/sport.svg">TURNOS
+                    TURNOS
                 </router-link>
 
-                <router-link to="/caja" class="nav-item nav-link">
-                    <img src="img/money.svg">CAJA
+                <router-link to="/cobranzas" class="nav-item nav-link">
+                    COBRANZAS
                 </router-link>
 
-                <router-link to="/inicio" class="nav-item nav-link">
-                    <img src="img/logout.svg">CERRAR SESION
-                </router-link>
-            </nav>
+            </b-navbar-nav>
 
-        </div>
-    </div>
+            <!-- Right aligned nav items -->
+            <b-navbar-nav class="ml-auto">
+
+                <!-- Using 'button-content' slot -->
+                <router-link to="/" class="nav-item nav-link">
+                    <img src="img/apagado.png" alt="" style="width: 30px;">
+                </router-link>
+            </b-navbar-nav>
+        </b-collapse>
+    </b-navbar>
 </div>
 </template>
 
