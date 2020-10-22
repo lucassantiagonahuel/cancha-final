@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 use App\Library\ResponseEstructure;
+use Illuminate\Support\Facades\Validator;
 
 use App\Turno;
 
@@ -14,20 +15,58 @@ class TurnosController extends Controller
 {
     public function index(Request $request)
     {
-        $turnos = DB::table("turnos")
-        ->select(
-            "turnos.*",
-            "clientes.nombre as clientes_nombre",
-            "clientes.apellido as clientes_apellido",
-            DB::raw("DATE_FORMAT(turnos.fecha_hora_desde,'%d/%m/%Y %H:%i') as fecha_desde_esp"),
-            DB::raw("DATE_FORMAT(turnos.fecha_hora_hasta,'%d/%m/%Y %H:%i') as fecha_hasta_esp"),
-            DB::raw("DATE_FORMAT(turnos.created_at,'%d/%m/%Y %H:%i') as fecha_creacion_esp")
-        )
-        ->leftJoin("clientes","clientes.id","=","turnos.cliente_id")
-        ->orderBy("turnos.id","desc")
-        ->get();
+        $response_estructure = new ResponseEstructure();
+        $response_estructure->set_response(false);
 
-        return response()->json($turnos);
+        $fechaDesde = $request->input("fechaDesde");
+        $fechaHasta = $request->input("fechaHasta");
+
+        $input= [
+            "fecha_desde"=>$fechaDesde,
+            "fecha_hasta"=>$fechaHasta,
+        ];
+
+        $rules = [
+            "fecha_desde"=>"required|required|date_format:d/m/Y",
+            "fecha_hasta"=>"required|required|date_format:d/m/Y",
+        ];
+
+        $validator = Validator::make($input, $rules);
+
+        if ($validator->fails()) {
+            $response_estructure->set_response(false);
+
+            $errors = $validator->errors();
+
+            foreach ($errors->all() as $error) {
+                $response_estructure->add_message_error($error);
+            }
+        }
+        else
+        {
+            $fechaDesde = \DateTime::createFromFormat("d/m/Y",$fechaDesde);
+            $fechaHasta = \DateTime::createFromFormat("d/m/Y",$fechaHasta);
+
+            $turnos = DB::table("turnos")
+            ->select(
+                "turnos.*",
+                "clientes.nombre as clientes_nombre",
+                "clientes.apellido as clientes_apellido",
+                DB::raw("DATE_FORMAT(turnos.fecha_hora_desde,'%d/%m/%Y %H:%i') as fecha_desde_esp"),
+                DB::raw("DATE_FORMAT(turnos.fecha_hora_hasta,'%d/%m/%Y %H:%i') as fecha_hasta_esp"),
+                DB::raw("DATE_FORMAT(turnos.created_at,'%d/%m/%Y %H:%i') as fecha_creacion_esp")
+            )
+            ->leftJoin("clientes","clientes.id","=","turnos.cliente_id")
+            ->where(DB::raw("DATE_FORMAT(turnos.created_at,'%Y/%m/%Y')"),">=",$fechaDesde->format("Y/m/d"))
+            ->where(DB::raw("DATE_FORMAT(turnos.created_at,'%Y/%m/%Y')"),"<=",$fechaHasta->format("Y/m/d"))
+            ->orderBy("turnos.id","desc")
+            ->get();
+
+            $response_estructure->set_data($turnos);
+            $response_estructure->set_response(true);
+        }
+
+        return response()->json($response_estructure->get_response_array());
     }
 
     public function store(Request $request)
