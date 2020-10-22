@@ -22,7 +22,7 @@
             <div class="row mt-5">
                 <div class="col-4">
                     <div>
-                        <b-card title="Clientes" img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2">
+                        <b-card title="Clientes" img-src="/img/cliente.png" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2">
                             <b-card-text>
                                 Modulo de clientes, agregar editar y eliminar.
                             </b-card-text>
@@ -59,7 +59,7 @@
                             </b-card-text>
 
                             <div style="text-align: center">
-                                <router-link to="/cobranzas" class="btn btn-primary">
+                                <router-link to="/caja" class="btn btn-primary">
                                     Ir al modulo
                                 </router-link>
                             </div>

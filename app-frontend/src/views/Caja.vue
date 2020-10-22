@@ -1,18 +1,12 @@
 <template>
 <div>
-    // <!-- MENU -->
-    // <!--<MenuApplicacion></MenuApplicacion>-->
-    // <!-- FIN MENU -->
+      
+     <MenuApplicacion></MenuApplicacion>
+     
 
     <main id="main-wrapper">
 
-        // <!-- HEADER -->
-        // <!--<HeaderApplication></HeaderApplication>-->
-        // <!-- FIN HEADER -->
-
-        // <!-- BOTTOM NAV -->
-        // <!--<MenuAbajoApplication></MenuAbajoApplication>-->
-        // <!-- FIN BOTTOM NAV -->
+    
 
         <div class="container" id="contenedor_view">
             <div class="row mt-3">
@@ -148,8 +142,6 @@
 <script>
 // @ is an alias to /src
 import MenuApplicacion from '@/components/template/MenuApplicacion.vue'
-import HeaderApplication from '@/components/template/HeaderApplication.vue'
-import MenuAbajoApplication from '@/components/template/MenuAbajoApplication.vue'
 
 import
 API_URL
@@ -161,8 +153,6 @@ export default {
     name: 'Caja',
     components: {
         MenuApplicacion,
-        HeaderApplication,
-        MenuAbajoApplication
     },
     data: function () {
 

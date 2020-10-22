@@ -23,8 +23,8 @@
                     TURNOS
                 </router-link>
 
-                <router-link to="/cobranzas" class="nav-item nav-link">
-                    COBRANZAS
+                <router-link to="/caja" class="nav-item nav-link">
+                    CAJA
                 </router-link>
 
             </b-navbar-nav>
