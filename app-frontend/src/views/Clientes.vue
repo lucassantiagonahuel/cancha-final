@@ -26,6 +26,9 @@
                     <button class="btn btn-primary" @click="abrirModalAgregar()"> 
                         Nuevo Cliente 
                     </button>
+                    <br>
+                    <input type="text"  placeholder="Buscar Cliente..." v-model="busqueda" >
+                    <button class="btn-btn primary" @click="listaClientes">Buscar</button>
                     <table class="table" id="listado">
                         <thead>
                             <tr>
@@ -152,6 +155,8 @@ export default {
 
             id_a_editar:"",
             id_a_eliminar:"",
+            nombre_filtrar:"",
+            busqueda:"",
 
         }
     },
@@ -169,7 +174,9 @@ export default {
 
         listaClientes: async function () {
 
-            let params = {}
+            let params = {
+                busqueda:this.busqueda
+            }
             let response = await axios.post(API_URL + 'clientes', params);
             this.clientes = response.data
 
@@ -324,6 +331,8 @@ export default {
         }
         
     },
+
+    
     mounted: function () {
         this.listaClientes();
     }
