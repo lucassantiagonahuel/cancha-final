@@ -1,18 +1,18 @@
 <template>
 <div>
-//     <!-- MENU -->
-//    <!-- <MenuApplicacion></MenuApplicacion>
-//     <!-- FIN MENU -->
+    <!-- MENU -->
+    <!-- <MenuApplicacion></MenuApplicacion>
+     <!-- FIN MENU -->
 
     <main id="main-wrapper">
 
-//         <!-- HEADER -->
-//    <!--     <HeaderApplication></HeaderApplication>
-//         <!-- FIN HEADER -->
+        <!-- HEADER -->
+    <!--     <HeaderApplication></HeaderApplication>
+         <!-- FIN HEADER -->
 
-//         <!-- BOTTOM NAV -->
-//    <!--     <MenuAbajoApplication></MenuAbajoApplication>
-//         <!-- FIN BOTTOM NAV -->
+         <!-- BOTTOM NAV -->
+    <!--     <MenuAbajoApplication></MenuAbajoApplication>
+         <!-- FIN BOTTOM NAV -->
 
         <div class="container" id="contenedor_view">
             <div class="row mt-3">
@@ -21,8 +21,14 @@
                 </div>
             </div>
 
-            <div class="row mt-3">
-                <div class="col-12">
+            <div class="row mt-3">                               
+                <div class="col-12 mb-3">
+                    <button class="btn btn-primary" @click="abrirModalAgregar()"> 
+                        Nuevo Cliente 
+                    </button>
+                    <br>
+                    <input type="text"  placeholder="Buscar Cliente..." v-model="busqueda" >
+                    <button class="btn-btn primary" @click="listaClientes">Buscar</button>
                     <table class="table" id="listado">
                         <thead>
                             <tr>
@@ -35,16 +41,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(cliente,index) in clientes">
+                            <tr v-for="(cliente,index) in clientes" :key="cliente.id">
                                 <td>{{cliente.id}}</td>
                                 <td>{{cliente.nombre}}</td>
                                 <td>{{cliente.apellido}}</td>
                                 <td>{{cliente.telefono}}</td>
                                 <td>{{cliente.domicilio}}</td>
                                 <td>
-                                    <button class="btn btn-info">Editar</button>
+                                    <button class="btn btn-info" @click="abrirModalEditar(cliente.id)">
+                                    Editar
+                                    </button>
                                     &nbsp;&nbsp;
-                                    <button class="btn btn-danger" v-on:click="eliminarCliente">Eliminar</button>
+                                    <button class="btn btn-danger" @click="abrirModalEliminar(cliente.id)">
+                                    Eliminar
+                                    </button>
                                 </td>
                             </tr>
 
@@ -55,11 +65,60 @@
         </div>
 
     </main>
+
+            <b-modal id="modal_agregar" ref="modal_agregar" hide-footer title="Agregar">
+                <div class="d-block text-center">
+                    <b-form-input v-model="nombre_agregar" placeholder="NOMBRE"></b-form-input>
+                    <b-form-input v-model="apellido_agregar" placeholder="APELLIDO" class="mt-2"></b-form-input>
+                    <b-form-input v-model="telefono_agregar" placeholder="TELEFONO" class="mt-2"></b-form-input>
+                    <b-form-input v-model="domicilio_agregar" placeholder="DOMICILIO" class="mt-2"></b-form-input>
+                </div>
+                <b-button class="mt-2" variant="outline-success" block @click="altaCliente()">Guardar</b-button>
+            </b-modal>
+
+            <b-modal id="modal_editar" ref="modal_editar" hide-footer title="Editar">
+                <div class="d-block text-center">
+                    <b-form-group label="Nombre:" label-for="input-vertical" label-align="left">
+                        <b-form-input v-model="nombre_editar" placeholder="nombre"></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group label="Apellido:" label-for="input-vertical" label-align="left">
+                        <b-form-input v-model="apellido_editar" placeholder="apellido" class="mt-2"></b-form-input>
+                    </b-form-group>
+                    </b-form-group>
+
+                    <b-form-group label="Teléfono:" label-for="input-vertical" label-align="left">
+                        <b-form-input v-model="telefono_editar" placeholder="telefono" class="mt-2"></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group label="Dirección:" label-for="input-vertical" label-align="left">
+                        <b-form-input v-model="domicilio_editar" placeholder="direccion" class="mt-2"></b-form-input>
+                    </b-form-group>
+                </div>
+                <b-button class="mt-2" variant="outline-success" block @click="editarCliente()">Guardar</b-button>
+            </b-modal>
+
+
+            <b-modal id="modal_eliminar" ref="modal_eliminar" hide-footer title="Eliminar">
+                <div class="d-block text-center">
+                    <p>¿Esta seguro desea eliminar el cliente seleccionado?</p>
+                </div>
+                <b-button class="mt-2" variant="outline-danger" block @click="eliminarCliente()">Aceptar</b-button>
+            </b-modal>
+
+
+
 </div>
 </template>
 
 <script>
 // @ is an alias to /src
+
+
+
+
+
+
 import MenuApplicacion from '@/components/template/MenuApplicacion.vue'
 import HeaderApplication from '@/components/template/HeaderApplication.vue'
 import MenuAbajoApplication from '@/components/template/MenuAbajoApplication.vue'
@@ -83,14 +142,41 @@ export default {
 
         return {
             clientes: [],
-            nombre: ""
+            
+            nombre_agregar:"",
+            apellido_agregar:"",
+            telefono_agregar:"",
+            domicilio_agregar:"",
+
+            nombre_editar:"",
+            apellido_editar:"",
+            telefono_editar:"",
+            domicilio_editar:"",
+
+            id_a_editar:"",
+            id_a_eliminar:"",
+            nombre_filtrar:"",
+            busqueda:"",
+
         }
     },
     methods: {
 
+        abrirModalAgregar() {
+
+            this.nombre_agregar = "";
+            this.apellido_agregar = "";
+            this.telefono_agregar = "";
+            this.domicilio_agregar = "";
+
+            this.$refs['modal_agregar'].show()
+        },
+
         listaClientes: async function () {
 
-            let params = {}
+            let params = {
+                busqueda:this.busqueda
+            }
             let response = await axios.post(API_URL + 'clientes', params);
             this.clientes = response.data
 
@@ -98,39 +184,20 @@ export default {
         },
 
         altaCliente: async function () {
-            let params = {
-                nombre: "Pedro",
-                apellido: "Gomez",
-                telefono: "9999999",
-                domicilio: "Urquiza 100",
-            }
-
+           let params = {
+            nombre:this.nombre_agregar,
+            apellido:this.apellido_agregar,
+            telefono:this.telefono_agregar,
+            domicilio:this.domicilio_agregar,
+                
+           }
             let response = await axios.post(API_URL + 'clientes/store', params);
-        },
-
-        modificarCliente: async function () {
-            let params = {
-                id: 1002,
-                nombre: "Pedro EDITADO",
-                apellido: "Gomez EDITADO",
-                telefono: "9999999 EDITADO",
-                domicilio: "Urquiza 100 EDITADO",
-            }
-
-            let response = await axios.post(API_URL + 'clientes/edit', params);
-        },
-
-        obtenerCliente: async function () {
-            let params = {
-                id: 1,
-            }
-
-            let response = await axios.post(API_URL + 'clientes/get', params);
 
             let respuesta_servidor = response.data;
 
             if (respuesta_servidor.response == true) {
-                alert("EL CLIENTE EXISTE MOSTRAR LOS DATOS EN EL MODAL DE EDICION");
+                this.$refs['modal_agregar'].hide()
+                this.listaClientes();
             } else {
                 let mensajes_errores = "";
 
@@ -142,16 +209,134 @@ export default {
             }
         },
 
-        eliminarCliente: async function () {
+        abrirModalEditar: async function (id_a_editar) {
+
             let params = {
-                id: 101
+                id: id_a_editar,
+            }
+
+            let response = await axios.post(API_URL + 'clientes/get', params);
+
+            let respuesta_servidor = response.data;
+
+            if (respuesta_servidor.response == true) {
+                this.id_a_editar = id_a_editar;
+
+                this.nombre_editar = respuesta_servidor.data.nombre;
+                this.apellido_editar = respuesta_servidor.data.apellido;
+                this.telefono_editar = respuesta_servidor.data.telefono;
+                this.domicilio_editar = respuesta_servidor.data.domicilio;
+
+                this.$refs['modal_editar'].show()
+            } else {
+                let mensajes_errores = "";
+
+                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                }
+
+                alert(mensajes_errores);
+            }
+        },
+
+
+        editarCliente: async function () {
+            let params = {
+                id:this.id_a_editar,
+                nombre:this.nombre_editar,
+                apellido:this.apellido_editar,
+                telefono:this.telefono_editar,
+                domicilio:this.domicilio_editar,
+            }
+
+            let response = await axios.post(API_URL + 'clientes/edit', params);
+
+            let respuesta_servidor = response.data;
+
+            if (respuesta_servidor.response == true) {
+                this.$refs['modal_editar'].hide();
+                this.listaClientes();
+            } else {
+                let mensajes_errores = "";
+
+                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                }
+
+                alert(mensajes_errores);
+            }
+
+
+            
+        },
+
+        abrirModalEliminar(id_row_seleccionado) {
+
+            this.id_a_eliminar = id_row_seleccionado;
+            this.$refs['modal_eliminar'].show();
+        },
+
+        eliminarCliente: async function () {
+
+            let params = {
+                id: this.id_a_eliminar
             }
 
             let response = await axios.post(API_URL + 'clientes/delete', params);
+
+            let respuesta_servidor = response.data;
+
+            this.$refs['modal_eliminar'].hide();
+
+            if (respuesta_servidor.response == true) {
+                this.listaClientes();
+            } else {
+                let mensajes_errores = "";
+
+                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                }
+
+                alert(mensajes_errores);
+            }
+        },
+
+
+//   obtenerCliente: async function () {
+//            let params = {
+//                id: 1002,
+//            }
+//
+//            let response = await axios.post(API_URL + 'clientes/get', params);
+//
+//            let respuesta_servidor = response.data;
+//
+//            if (respuesta_servidor.response == true) {
+//                alert("EL CLIENTE EXISTE MOSTRAR LOS DATOS EN EL MODAL DE EDICION");
+//            } else {
+//                let mensajes_errores = "";
+//
+//                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+//                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+//                }
+
+//                alert(mensajes_errores);
+//            }
+//        },
+        listaClientes: async function () {
+
+            let params = {}
+            let response = await axios.post(API_URL + 'clientes', params);
+            this.clientes = response.data
         }
+        
     },
+
+    
     mounted: function () {
         this.listaClientes();
     }
 }
+
+
 </script>

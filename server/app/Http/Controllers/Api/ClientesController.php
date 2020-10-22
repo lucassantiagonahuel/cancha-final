@@ -66,7 +66,8 @@ class ClientesController extends Controller
 
     public function edit(Request $request)
     {
-        $respuesta = false;
+        $response_estructure = new ResponseEstructure();
+        $response_estructure->set_response(false);
 
         $id = $request->input("id");
 
@@ -85,10 +86,12 @@ class ClientesController extends Controller
             $cliente_row->domicilio = $domicilio;
             $cliente_row->save();
 
-            $respuesta = true;
+            $response_estructure->set_response(true);
+            //$respuesta = true;
         }
-
-        return response()->json($respuesta);
+        
+        return response()->json($response_estructure->get_response_array());
+        //return response()->json($respuesta);
     }
 
     public function get(Request $request)
@@ -115,7 +118,8 @@ class ClientesController extends Controller
 
     public function delete(Request $request)
     {
-        $respuesta = false;
+        $response_estructure = new ResponseEstructure();
+        $response_estructure->set_response(false);
 
         $id = $request->input("id");
 
@@ -124,9 +128,14 @@ class ClientesController extends Controller
         if($cliente_row)
         {
             $cliente_row->delete();
-            $respuesta = true;
+            $response_estructure->set_response(true);
         }
-        
-        return response()->json($respuesta);
+        else
+        {
+            $response_estructure->set_response(false);
+            $response_estructure->add_message_error("El cliente no existe");
+        }
+
+        return response()->json($response_estructure->get_response_array());
     }
 }

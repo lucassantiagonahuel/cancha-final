@@ -16,8 +16,8 @@ class Caja extends Migration
         Schema::create('caja', function (Blueprint $table) {
             $table->increments("id");
             $table->string("descripcion",200);
-            $table->integer("id_turno")->unsigned();
-            $table->foreign("id_turno")->references("id")->on("turnos");
+            $table->integer("id_turno")->unsigned()->nullable();
+            $table->foreign("id_turno")->references("id")->on("turnos")->onDelete("set null");
             $table->double("total");
             $table->datetime("fecha");
             $table->timestamps();
