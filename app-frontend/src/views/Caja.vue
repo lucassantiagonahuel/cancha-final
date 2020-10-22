@@ -22,6 +22,33 @@
                     </button>
                 </div>
               </div>  
+
+            <div class="col-12">
+                    <div>
+                        <b-card title="Filtro">
+                            <form @submit="filtrarCaja">
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="fecha_desde">Desde</label>
+                                        <input type="text" class="form-control" id="fecha_desde" v-model="fechaDesdeFiltro">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="fecha_hasta">Hasta</label>
+                                        <input type="text" class="form-control" id="fecha_hasta" v-model="fechaHastaFiltro">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label for="">&nbsp;</label><br>
+                                        <button type="submit" class="btn btn-danger">Filtrar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </b-card>
+                    </div>
+                </div>
+
+
+
                
                <div class="row mt-3">
                 <div class="col-4 mb-3">
@@ -171,6 +198,9 @@ export default {
 
             id_a_editar: "",
             id_a_eliminar: "",
+
+            fechaDesdeFiltro: "01/01/2020",
+            fechaHastaFiltro: "01/12/2020",
         }
     },
     methods: {
@@ -310,10 +340,68 @@ export default {
 
         listaCaja: async function () {
 
-            let params = {}
+            let params = {
+                fechaDesde: this.fechaDesdeFiltro,
+                fechaHasta: this.fechaHastaFiltro
+            }
             let response = await axios.post(API_URL + 'caja', params);
             this.ListadoCaja = response.data
+
+            if (respuesta_servidor.response == true) {
+
+                this.caja = respuesta_servidor.data
+            } else {
+                let mensajes_errores = "";
+
+                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                }
+
+                alert(mensajes_errores);
+            }
+
+        },
+
+        filtrarCaja: function (evt) {
+            evt.preventDefault()
+
+            if (this.validateFechaEsp(this.fechaDesdeFiltro) && this.validateFechaEsp(this.fechaHastaFiltro)) {
+                this.listaCaja()
+            } else {
+                alert("Verifique las fechas ingresadas")
+            }
+        },
+
+
+        validateFechaEsp: function (fecha) {
+
+            let partes_fecha = fecha.split("/")
+
+            if (partes_fecha.length == 3) {
+                let dia = parseInt(partes_fecha[0])
+                let mes = parseInt(partes_fecha[1])
+                let anio = parseInt(partes_fecha[2])
+
+                if (isNaN(dia) || isNaN(mes) || isNaN(anio)) {
+                    return false
+                }
+
+                if (dia > 31 || dia < 1) {
+                    return false
+                }
+
+                if (mes > 12 || mes < 1) {
+                    return false
+                }
+
+                return true
+            } else {
+                return false
+            }
         }
+
+
+
     },
     mounted: function () {
         this.listaCaja();
