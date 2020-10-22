@@ -1,8 +1,11 @@
 <template>
 <div>
+    <!-- MENU -->
     <MenuApplicacion></MenuApplicacion>
+     <!-- FIN MENU -->
 
     <main id="main-wrapper">
+      
 
         <div class="container" id="contenedor_view">
             <div class="row mt-3">
@@ -12,14 +15,20 @@
             </div>
 
             <div class="row mt-3">
-                <div class="col-12 mb-3">
                     <button class="btn btn-primary" @click="abrirModalAgregar()">
                         Nuevo Cliente
                     </button>
-                    <br>
-                    <input type="text" placeholder="Buscar Cliente..." v-model="busqueda">
-                    <button class="btn-btn primary" @click="listaClientes">Buscar</button>
-                    <table class="table" id="listado">
+                    <div class="col-12">
+                    <div>
+                        
+                        <b-card title="Filtro">
+                            <input type="text" placeholder="Buscar Cliente..." v-model="busqueda">
+                            <button class="btn-btn primary" @click="listaClientes">Buscar</button>
+                        </b-card>
+
+                    </div>
+                </div>
+                    <table class="table table-hover table-dark" id="listado">
                         <thead>
                             <tr>
                                 <th bgcolor="#FF3F2C"> Id </th>
@@ -95,214 +104,208 @@
         <b-button class="mt-2" variant="outline-danger" block @click="eliminarCliente()">Aceptar</b-button>
     </b-modal>
 
+
 </div>
 </template>
 
 <script>
 // @ is an alias to /src
 
-import MenuApplicacion from '@/components/template/MenuApplicacion.vue'
+import MenuApplicacion from "@/components/template/MenuApplicacion.vue";
 
-import
-API_URL
-from '@/servicios/Api.js'
+import API_URL from "@/servicios/Api.js";
 
-const axios = require('axios');
+console.log(API_URL);
+
+const axios = require("axios");
 
 export default {
-    name: 'Clientes',
-    components: {
-        MenuApplicacion
-    },
-    data: function () {
+  name: "Clientes",
+  components: {
+    MenuApplicacion,
+  },
+  data: function () {
+    return {
+      clientes: [],
 
-        return {
-            clientes: [],
+      nombre_agregar: "",
+      apellido_agregar: "",
+      telefono_agregar: "",
+      domicilio_agregar: "",
 
-            nombre_agregar: "",
-            apellido_agregar: "",
-            telefono_agregar: "",
-            domicilio_agregar: "",
+      nombre_editar: "",
+      apellido_editar: "",
+      telefono_editar: "",
+      domicilio_editar: "",
 
-            nombre_editar: "",
-            apellido_editar: "",
-            telefono_editar: "",
-            domicilio_editar: "",
+      id_a_editar: "",
+      id_a_eliminar: "",
+      nombre_filtrar: "",
+      busqueda: "",
+    };
+  },
+  methods: {
+    abrirModalAgregar() {
+      this.nombre_agregar = "";
+      this.apellido_agregar = "";
+      this.telefono_agregar = "";
+      this.domicilio_agregar = "";
 
-            id_a_editar: "",
-            id_a_eliminar: "",
-            nombre_filtrar: "",
-            busqueda: "",
-
-        }
-    },
-    methods: {
-
-        abrirModalAgregar() {
-
-            this.nombre_agregar = "";
-            this.apellido_agregar = "";
-            this.telefono_agregar = "";
-            this.domicilio_agregar = "";
-
-            this.$refs['modal_agregar'].show()
-        },
-
-        listaClientes: async function () {
-
-            let params = {
-                busqueda: this.busqueda
-            }
-
-            console.log(params)
-
-            let response = await axios.post(API_URL + 'clientes', params);
-            this.clientes = response.data
-
-            this.obtenerCliente();
-        },
-
-        altaCliente: async function () {
-            let params = {
-                nombre: this.nombre_agregar,
-                apellido: this.apellido_agregar,
-                telefono: this.telefono_agregar,
-                domicilio: this.domicilio_agregar,
-
-            }
-            let response = await axios.post(API_URL + 'clientes/store', params);
-
-            let respuesta_servidor = response.data;
-
-            if (respuesta_servidor.response == true) {
-                this.$refs['modal_agregar'].hide()
-                this.listaClientes();
-            } else {
-                let mensajes_errores = "";
-
-                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
-                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
-                }
-
-                alert(mensajes_errores);
-            }
-        },
-
-        abrirModalEditar: async function (id_a_editar) {
-
-            let params = {
-                id: id_a_editar,
-            }
-
-            let response = await axios.post(API_URL + 'clientes/get', params);
-
-            let respuesta_servidor = response.data;
-
-            if (respuesta_servidor.response == true) {
-                this.id_a_editar = id_a_editar;
-
-                this.nombre_editar = respuesta_servidor.data.nombre;
-                this.apellido_editar = respuesta_servidor.data.apellido;
-                this.telefono_editar = respuesta_servidor.data.telefono;
-                this.domicilio_editar = respuesta_servidor.data.domicilio;
-
-                this.$refs['modal_editar'].show()
-            } else {
-                let mensajes_errores = "";
-
-                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
-                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
-                }
-
-                alert(mensajes_errores);
-            }
-        },
-
-        editarCliente: async function () {
-            let params = {
-                id: this.id_a_editar,
-                nombre: this.nombre_editar,
-                apellido: this.apellido_editar,
-                telefono: this.telefono_editar,
-                domicilio: this.domicilio_editar,
-            }
-
-            let response = await axios.post(API_URL + 'clientes/edit', params);
-
-            let respuesta_servidor = response.data;
-
-            if (respuesta_servidor.response == true) {
-                this.$refs['modal_editar'].hide();
-                this.listaClientes();
-            } else {
-                let mensajes_errores = "";
-
-                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
-                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
-                }
-
-                alert(mensajes_errores);
-            }
-
-        },
-
-        abrirModalEliminar(id_row_seleccionado) {
-
-            this.id_a_eliminar = id_row_seleccionado;
-            this.$refs['modal_eliminar'].show();
-        },
-
-        eliminarCliente: async function () {
-
-            let params = {
-                id: this.id_a_eliminar
-            }
-
-            let response = await axios.post(API_URL + 'clientes/delete', params);
-
-            let respuesta_servidor = response.data;
-
-            this.$refs['modal_eliminar'].hide();
-
-            if (respuesta_servidor.response == true) {
-                this.listaClientes();
-            } else {
-                let mensajes_errores = "";
-
-                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
-                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
-                }
-
-                alert(mensajes_errores);
-            }
-        },
-
-        //   obtenerCliente: async function () {
-        //            let params = {
-        //                id: 1002,
-        //            }
-        //
-        //            let response = await axios.post(API_URL + 'clientes/get', params);
-        //
-        //            let respuesta_servidor = response.data;
-        //
-        //            if (respuesta_servidor.response == true) {
-        //                alert("EL CLIENTE EXISTE MOSTRAR LOS DATOS EN EL MODAL DE EDICION");
-        //            } else {
-        //                let mensajes_errores = "";
-        //
-        //                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
-        //                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
-        //                }
-
-        //                alert(mensajes_errores);
-        //            }
-        //        },
-
+      this.$refs["modal_agregar"].show();
     },
 
-    mounted: function () {
+    listaClientes: async function () {
+      let params = {
+        busqueda: this.busqueda,
+      };
+
+      console.log(params);
+
+      let response = await axios.post(API_URL + "clientes", params);
+      this.clientes = response.data;
+
+      this.obtenerCliente();
+    },
+
+    altaCliente: async function () {
+      let params = {
+        nombre: this.nombre_agregar,
+        apellido: this.apellido_agregar,
+        telefono: this.telefono_agregar,
+        domicilio: this.domicilio_agregar,
+      };
+      let response = await axios.post(API_URL + "clientes/store", params);
+
+      let respuesta_servidor = response.data;
+
+      if (respuesta_servidor.response == true) {
+        this.$refs["modal_agregar"].hide();
         this.listaClientes();
-    }
-}
+      } else {
+        let mensajes_errores = "";
+
+        for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+          mensajes_errores =
+            mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+        }
+
+        alert(mensajes_errores);
+      }
+    },
+
+    abrirModalEditar: async function (id_a_editar) {
+      let params = {
+        id: id_a_editar,
+      };
+
+      let response = await axios.post(API_URL + "clientes/get", params);
+
+      let respuesta_servidor = response.data;
+
+      if (respuesta_servidor.response == true) {
+        this.id_a_editar = id_a_editar;
+
+        this.nombre_editar = respuesta_servidor.data.nombre;
+        this.apellido_editar = respuesta_servidor.data.apellido;
+        this.telefono_editar = respuesta_servidor.data.telefono;
+        this.domicilio_editar = respuesta_servidor.data.domicilio;
+
+        this.$refs["modal_editar"].show();
+      } else {
+        let mensajes_errores = "";
+
+        for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+          mensajes_errores =
+            mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+        }
+
+        alert(mensajes_errores);
+      }
+    },
+
+    editarCliente: async function () {
+      let params = {
+        id: this.id_a_editar,
+        nombre: this.nombre_editar,
+        apellido: this.apellido_editar,
+        telefono: this.telefono_editar,
+        domicilio: this.domicilio_editar,
+      };
+
+      let response = await axios.post(API_URL + "clientes/edit", params);
+
+      let respuesta_servidor = response.data;
+
+      if (respuesta_servidor.response == true) {
+        this.$refs["modal_editar"].hide();
+        this.listaClientes();
+      } else {
+        let mensajes_errores = "";
+
+        for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+          mensajes_errores =
+            mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+        }
+
+        alert(mensajes_errores);
+      }
+    },
+
+    abrirModalEliminar(id_row_seleccionado) {
+      this.id_a_eliminar = id_row_seleccionado;
+      this.$refs["modal_eliminar"].show();
+    },
+
+    eliminarCliente: async function () {
+      let params = {
+        id: this.id_a_eliminar,
+      };
+
+      let response = await axios.post(API_URL + "clientes/delete", params);
+
+      let respuesta_servidor = response.data;
+
+      this.$refs["modal_eliminar"].hide();
+
+      if (respuesta_servidor.response == true) {
+        this.listaClientes();
+      } else {
+        let mensajes_errores = "";
+
+        for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+          mensajes_errores =
+            mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+        }
+
+        alert(mensajes_errores);
+      }
+    },
+
+    //   obtenerCliente: async function () {
+    //            let params = {
+    //                id: 1002,
+    //            }
+    //
+    //            let response = await axios.post(API_URL + 'clientes/get', params);
+    //
+    //            let respuesta_servidor = response.data;
+    //
+    //            if (respuesta_servidor.response == true) {
+    //                alert("EL CLIENTE EXISTE MOSTRAR LOS DATOS EN EL MODAL DE EDICION");
+    //            } else {
+    //                let mensajes_errores = "";
+    //
+    //                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+    //                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+    //                }
+
+    //                alert(mensajes_errores);
+    //            }
+    //        },
+  },
+
+  mounted: function () {
+    this.listaClientes();
+  },
+};
 </script>
