@@ -1,18 +1,8 @@
 <template>
 <div>
-    // <!-- MENU -->
-    // <!--<MenuApplicacion></MenuApplicacion>-->
-    // <!-- FIN MENU -->
+    <MenuApplicacion></MenuApplicacion>
 
     <main id="main-wrapper">
-
-        // <!-- HEADER -->
-        // <!--<HeaderApplication></HeaderApplication>-->
-        // <!-- FIN HEADER -->
-
-        // <!-- BOTTOM NAV -->
-        // <!--<MenuAbajoApplication></MenuAbajoApplication>-->
-        // <!-- FIN BOTTOM NAV -->
 
         <div class="container" id="contenedor_view">
             <div class="row mt-3">
@@ -28,6 +18,13 @@
                     </button>
                 </div>
                 <div class="col-12">
+                    <div>
+                        <b-card title="Filtro">
+                        </b-card>
+                    </div>
+                </div>
+
+                <div class="col-12 mt-2">
                     <table class="table" id="listado">
                         <thead>
                             <tr>
@@ -108,8 +105,6 @@
 <script>
 // @ is an alias to /src
 import MenuApplicacion from '@/components/template/MenuApplicacion.vue'
-import HeaderApplication from '@/components/template/HeaderApplication.vue'
-import MenuAbajoApplication from '@/components/template/MenuAbajoApplication.vue'
 
 import
 API_URL
@@ -121,8 +116,6 @@ export default {
     name: 'Turnos',
     components: {
         MenuApplicacion,
-        HeaderApplication,
-        MenuAbajoApplication
     },
     data: function () {
 
