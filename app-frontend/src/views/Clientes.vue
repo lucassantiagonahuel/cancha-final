@@ -18,7 +18,7 @@
                     </button>
                     <br>
                     <input type="text" placeholder="Buscar Cliente..." v-model="busqueda">
-                    <button class="btn-btn primary" @click="listaClientes">Buscar</button>
+                    <button class="btn btn-primary" @click="listaClientes">Buscar</button>
                     <table class="table" id="listado">
                         <thead>
                             <tr>
@@ -38,13 +38,9 @@
                                 <td>{{cliente.telefono}}</td>
                                 <td>{{cliente.domicilio}}</td>
                                 <td>
-                                    <button class="btn btn-info" @click="abrirModalEditar(cliente.id)">
-                                        Editar
-                                    </button>
+                                    <button class="btn btn-info" @click="abrirModalEditar(cliente.id)">Editar</button>
                                     &nbsp;&nbsp;
-                                    <button class="btn btn-danger" @click="abrirModalEliminar(cliente.id)">
-                                        Eliminar
-                                    </button>
+                                    <button class="btn btn-danger" @click="abrirModalEliminar(cliente.id)">Eliminar</button>
                                 </td>
                             </tr>
 
