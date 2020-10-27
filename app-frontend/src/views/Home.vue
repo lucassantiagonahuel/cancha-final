@@ -19,8 +19,8 @@
                 </div>
             </div>
 
-            <div class="row mt-5">
-                <div class="col-4">
+            <div class="row mt-5 justify-content-center">
+                <div class="col-3">
                     <div>
                         <b-card title="Clientes"img-src="/img/clientela.png" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2">
                             <b-card-text>
@@ -36,7 +36,7 @@
                         </b-card>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <div>
                         <b-card title="Turnos" img-src="/img/turnosCancha.png" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2">
                             <b-card-text>
@@ -51,7 +51,7 @@
                         </b-card>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <div>
                         <b-card title="Caja" img-src="/img/caja-registradora.png" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2">
                             <b-card-text>

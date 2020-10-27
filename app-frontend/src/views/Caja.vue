@@ -47,16 +47,16 @@
             <div class="row mt-3">
                 <div class="col-4 mb-3">
 
-                    <b-card title="Ventas" class="mb-2">
+                    <b-card title="Ventas" class="mb-2 bg-info text-white">
                         <b-card-text>
-                            <h3>{{totalVentas}}</h3>
+                            <h3 class="text-white">{{totalVentas}}</h3>
                         </b-card-text>
 
                     </b-card>
                 </div>
                 <div class="col-4 mb-3">
 
-                    <b-card title="Gastos" class="mb-2">
+                    <b-card title="Gastos" class="mb-2 bg-danger text-white">
                         <b-card-text>
                             <h3>{{totalGastos}}</h3>
                         </b-card-text>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="col-4 mb-3">
 
-                    <b-card title="Ganancias" class="mb-2">
+                    <b-card title="Ganancias" class="mb-2 bg-success text-white">
                         <b-card-text>
                             <h3>{{totalGanancias}}</h3>
                         </b-card-text>
@@ -326,6 +326,7 @@ export default {
             respuesta_servidor = respuesta_servidor.data;
 
             if (respuesta_servidor.response == true) {
+                
                 this.totalVentas = "$ " + respuesta_servidor.data.ventas
                 this.totalGanancias = "$ " + respuesta_servidor.data.ganancias
                 this.totalGastos = "$ " + respuesta_servidor.data.gastos

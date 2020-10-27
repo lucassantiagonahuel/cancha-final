@@ -1,5 +1,5 @@
 <template>
-<div>
+<div style="background-color: #CCC">
     <main id="main-wrapper">
 
         <div class="container" id="contenedor_view">
