@@ -28,7 +28,7 @@
 
                     </div>
                 </div>
-                    <table class="table table-hover table-dark" id="listado">
+                    <table class="table" id="listado">
                         <thead>
                             <tr>
                                 <th bgcolor="#FF3F2C"> Id </th>
