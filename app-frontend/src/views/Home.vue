@@ -15,20 +15,20 @@
 
             <div class="row mt-5 mb-5">
                 <div class="col-12">
-                    <h3 class="text-center">Modulos del sistema</h3>
+                    <h1 class="text-center">Modulos del sistema</h1>
                 </div>
             </div>
 
             <div class="row mt-5">
                 <div class="col-4">
                     <div>
-                        <b-card title="Clientes" img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2">
+                        <b-card title="Clientes"img-src="/img/clientela.png" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2">
                             <b-card-text>
-                                Modulo de clientes, agregar editar y eliminar.
+                                <strong>Modulo de clientes, agregar editar y eliminar.</strong>
                             </b-card-text>
 
                             <div style="text-align: center">
-                                <router-link to="/clientes" class="btn btn-primary">
+                                <router-link to="/clientes" class="btn btn-danger">
                                     Ir al modulo
                                 </router-link>
                             </div>
@@ -38,13 +38,13 @@
                 </div>
                 <div class="col-4">
                     <div>
-                        <b-card title="Turnos" img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2">
+                        <b-card title="Turnos" img-src="/img/turnosCancha.png" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2">
                             <b-card-text>
-                                Modulo de clientes, agregar editar y eliminar.
+                                <strong>Modulo de turnos, agregar editar y eliminar.</strong>
                             </b-card-text>
 
                             <div style="text-align: center">
-                                <router-link to="/turnos" class="btn btn-primary">
+                                <router-link to="/turnos" class="btn btn-danger">
                                     Ir al modulo
                                 </router-link>
                             </div>
@@ -53,13 +53,13 @@
                 </div>
                 <div class="col-4">
                     <div>
-                        <b-card title="Caja" img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2">
+                        <b-card title="Caja" img-src="/img/caja-registradora.png" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2">
                             <b-card-text>
-                                Modulo de clientes, agregar editar y eliminar.
+                                <strong>Modulo de caja, agregar editar y eliminar.</strong>
                             </b-card-text>
 
                             <div style="text-align: center">
-                                <router-link to="/cobranzas" class="btn btn-primary">
+                                <router-link to="/caja" class="btn btn-danger">
                                     Ir al modulo
                                 </router-link>
                             </div>
