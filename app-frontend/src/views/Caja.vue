@@ -345,7 +345,7 @@ export default {
                 fechaHasta: this.fechaHastaFiltro
             }
             let response = await axios.post(API_URL + 'caja', params);
-            this.ListadoCaja = response.data
+            this.ListadoCaja = response.data;
 
             if (respuesta_servidor.response == true) {
 
