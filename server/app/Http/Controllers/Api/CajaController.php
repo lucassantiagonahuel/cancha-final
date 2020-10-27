@@ -43,6 +43,22 @@ class CajaController extends Controller
         }
 
         else {
+
+            $gastos = DB::select("SELECT sum(total) as gastos  FROM `caja` where total < 0");
+            $gastos = (int) $gastos[0]->gastos;
+
+            if($gastos < 0)
+            {
+                $gastos *= -1;
+            }
+
+            $ventas = DB::select("SELECT sum(total) as ventas FROM `caja` where total > 0");
+            $ventas = (int) $ventas[0]->ventas;
+
+            $ganancias = DB::select("SELECT sum(total) as ganancias  FROM caja");
+            $ganancias = (int) $ganancias[0]->ganancias;
+
+
             $fechaDesde = \DateTime::createFromFormat("d/m/Y",$fechaDesde);
             $fechaHasta = \DateTime::createFromFormat("d/m/Y",$fechaHasta);
 
@@ -57,12 +73,16 @@ class CajaController extends Controller
             ->orderBy("caja.id","desc")
             ->get();
 
-            $response_estructure->set_data($caja);
+            $datos_respuesta = array(
+                "listado_caja"=>$caja,
+                "gastos" => $gastos,
+                "ventas" => $ventas,
+                "ganancias" => $ganancias
+            );
+
+            $response_estructure->set_data($datos_respuesta);
             $response_estructure->set_response(true);
         }
-
-
-        
 
         return response()->json($response_estructure->get_response_array());
     }

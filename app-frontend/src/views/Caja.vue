@@ -1,12 +1,9 @@
 <template>
 <div>
-      
-     <MenuApplicacion></MenuApplicacion>
-     
+
+    <MenuApplicacion></MenuApplicacion>
 
     <main id="main-wrapper">
-
-    
 
         <div class="container" id="contenedor_view">
             <div class="row mt-3">
@@ -21,76 +18,63 @@
                         Agregar
                     </button>
                 </div>
-              </div>  
+            </div>
 
             <div class="col-12">
-                    <div>
-                        <b-card title="Filtro">
-                            <form @submit="filtrarCaja">
+                <div>
+                    <b-card title="Filtro">
+                        <form @submit="filtrarCaja">
 
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label for="fecha_desde"><strong>Desde</strong></label>
-                                        <input type="text" class="form-control" id="fecha_desde" v-model="fechaDesdeFiltro">
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label for="fecha_hasta"><strong>Hasta</strong></label>
-                                        <input type="text" class="form-control" id="fecha_hasta" v-model="fechaHastaFiltro">
-                                    </div>
-                                    <div class="col-md-1">
-                                        <label for="">&nbsp;</label><br>
-                                        <button type="submit" class="btn btn-outline-danger">Filtrar</button>
-                                    </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="fecha_desde"><strong>Desde</strong></label>
+                                    <input type="text" class="form-control" id="fecha_desde" v-model="fechaDesdeFiltro">
                                 </div>
-                            </form>
-                        </b-card>
-                    </div>
+                                <div class="col-md-2">
+                                    <label for="fecha_hasta"><strong>Hasta</strong></label>
+                                    <input type="text" class="form-control" id="fecha_hasta" v-model="fechaHastaFiltro">
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">&nbsp;</label><br>
+                                    <button type="submit" class="btn btn-outline-danger">Filtrar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </b-card>
                 </div>
+            </div>
 
-
-
-               
-               <div class="row mt-3">
+            <div class="row mt-3">
                 <div class="col-4 mb-3">
 
-                    <b-card
-                        title="Ventas"
-                        class="mb-2"
-                    >
-                    <b-card-text>
-                        <h3>$120</h3>
-                    </b-card-text>
+                    <b-card title="Ventas" class="mb-2">
+                        <b-card-text>
+                            <h3>{{totalVentas}}</h3>
+                        </b-card-text>
 
-                     </b-card>   
-                </div>
-                <div class="col-4 mb-3">
-
-                    <b-card
-                        title="Gastos"
-                        class="mb-2"
-                    >
-                    <b-card-text>
-                        <h3>$120</h3>
-                    </b-card-text>
-
-                     </b-card>   
+                    </b-card>
                 </div>
                 <div class="col-4 mb-3">
 
-                    <b-card
-                        title="Ganancias"
-                        class="mb-2"
-                    >
-                    <b-card-text>
-                        <h3>$120</h3>
-                    </b-card-text>
+                    <b-card title="Gastos" class="mb-2">
+                        <b-card-text>
+                            <h3>{{totalGastos}}</h3>
+                        </b-card-text>
 
-                     </b-card>   
+                    </b-card>
+                </div>
+                <div class="col-4 mb-3">
+
+                    <b-card title="Ganancias" class="mb-2">
+                        <b-card-text>
+                            <h3>{{totalGanancias}}</h3>
+                        </b-card-text>
+
+                    </b-card>
                 </div>
 
-                </div>
-                <div class="row mt-3">
-
+            </div>
+            <div class="row mt-3">
 
                 <div class="col-12">
                     <table class="table" id="listado">
@@ -109,7 +93,10 @@
                                 <td>{{row.id}}</td>
                                 <td>{{row.descripcion}}</td>
                                 <td>{{row.id_turno}}</td>
-                                <td>$ {{row.total}}</td>
+                                <td>
+                                    <span v-if="row.total >= 0" class="text-success" style="font-weight: bold;">$ {{row.total}}</span>
+                                    <span v-else class="text-danger" style="font-weight: bold;">$ {{row.total}}</span>
+                                </td>
                                 <td>{{row.fecha_caja}}</td>
                                 <td>
                                     <button class="btn btn-info" @click="abrirModalEditar(row.id)">Editar</button>
@@ -137,10 +124,6 @@
 
     <b-modal id="modal_editar" ref="modal_editar" hide-footer title="Editar">
         <div class="d-block text-center">
-            <b-form-group label="Caja:" label-for="input-vertical" label-align="left">
-                <b-form-input v-model="caja_id_editar" placeholder="ID CAJA"></b-form-input>
-            </b-form-group>
-
             <b-form-group label="DESCRIPCION:" label-for="input-vertical" label-align="left">
                 <b-form-input v-model="descripcion_editar" placeholder="DESCRIPCION" class="mt-2"></b-form-input>
             </b-form-group>
@@ -187,13 +170,13 @@ export default {
             ListadoCaja: [],
 
             caja_id_agregar: "",
-           descripcion_agregar: "",
+            descripcion_agregar: "",
             total_agregar: "",
             fecha_agregar: "",
 
             caja_id_editar: "",
             descripcion_editar: "",
-           total_editar: "",
+            total_editar: "",
             fecha_editar: "",
 
             id_a_editar: "",
@@ -201,6 +184,10 @@ export default {
 
             fechaDesdeFiltro: "01/01/2020",
             fechaHastaFiltro: "01/12/2020",
+
+            totalVentas: "Calculando...",
+            totalGanancias: "Calculando...",
+            totalGastos: "Calculando...",
         }
     },
     methods: {
@@ -241,9 +228,6 @@ export default {
             }
         },
 
-
-
-
         abrirModalEditar: async function (id_a_editar) {
 
             let params = {
@@ -257,7 +241,6 @@ export default {
             if (respuesta_servidor.response == true) {
                 this.id_a_editar = id_a_editar;
 
-                this.caja_id_editar = respuesta_servidor.data.id;
                 this.descripcion_editar = respuesta_servidor.data.descripcion;
                 this.total_editar = respuesta_servidor.data.total;
                 this.fecha_editar = respuesta_servidor.data.fecha;
@@ -277,8 +260,8 @@ export default {
         editarCaja: async function () {
 
             let params = {
-                id: this.caja_id_editar,
-               descripcion: this.descripcion_editar,
+                id: this.id_a_editar,
+                descripcion: this.descripcion_editar,
                 total: this.total_editar,
                 fecha: this.fecha_editar,
             }
@@ -300,12 +283,6 @@ export default {
                 alert(mensajes_errores);
             }
         },
-
-
-
-
-
-
 
         abrirModalEliminar(id_row_seleccionado) {
 
@@ -344,12 +321,16 @@ export default {
                 fechaDesde: this.fechaDesdeFiltro,
                 fechaHasta: this.fechaHastaFiltro
             }
-            let response = await axios.post(API_URL + 'caja', params);
-            this.ListadoCaja = response.data;
+
+            let respuesta_servidor = await axios.post(API_URL + 'caja', params);
+            respuesta_servidor = respuesta_servidor.data;
 
             if (respuesta_servidor.response == true) {
+                this.totalVentas = "$ " + respuesta_servidor.data.ventas
+                this.totalGanancias = "$ " + respuesta_servidor.data.ganancias
+                this.totalGastos = "$ " + respuesta_servidor.data.gastos
 
-                this.caja = respuesta_servidor.data
+                this.ListadoCaja = respuesta_servidor.data.listado_caja;
             } else {
                 let mensajes_errores = "";
 
@@ -371,7 +352,6 @@ export default {
                 alert("Verifique las fechas ingresadas")
             }
         },
-
 
         validateFechaEsp: function (fecha) {
 
@@ -400,12 +380,9 @@ export default {
             }
         }
 
-
-
     },
     mounted: function () {
         this.listaCaja();
     }
 }
 </script>
-
