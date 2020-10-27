@@ -26,8 +26,8 @@ class CajaController extends Controller
         ];
 
         $rules = [
-            "fecha_desde"=>"required|required|date_format:d/m/Y",
-            "fecha_hasta"=>"required|required|date_format:d/m/Y",
+            "fecha_desde"=>"required|date_format:d/m/Y",
+            "fecha_hasta"=>"required|date_format:d/m/Y",
         ];
 
         $validator = Validator::make($input, $rules);
@@ -68,8 +68,8 @@ class CajaController extends Controller
                      DB::raw("DATE_FORMAT(caja.fecha,'%d/%m/%Y %H:%i') as fecha_caja"),
                      DB::raw("DATE_FORMAT(caja.created_at,'%d/%m/%Y %H:%i') as fecha_creacion_esp")
                     )
-            ->where(DB::raw("DATE_FORMAT(caja.created_at,'%Y/%m/%Y')"),">=",$fechaDesde->format("Y/m/d"))
-            ->where(DB::raw("DATE_FORMAT(caja.created_at,'%Y/%m/%Y')"),"<=",$fechaHasta->format("Y/m/d"))        
+            ->where(DB::raw("DATE_FORMAT(caja.fecha,'%Y/%m/%d')"),">=",$fechaDesde->format("Y/m/d"))
+            ->where(DB::raw("DATE_FORMAT(caja.fecha,'%Y/%m/%d')"),"<=",$fechaHasta->format("Y/m/d"))        
             ->orderBy("caja.id","desc")
             ->get();
 

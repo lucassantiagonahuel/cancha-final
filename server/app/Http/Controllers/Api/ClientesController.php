@@ -13,7 +13,22 @@ class ClientesController extends Controller
 {
     public function index(Request $request)
     {
-        $clientes = Cliente::all();
+        $busqueda = trim($request->input("busqueda"));
+
+        $clientes = array();
+
+        if($busqueda == "")
+        {
+            $clientes = Cliente::orderBy("id","desc")->get();
+        }
+        else
+        {
+            $clientes = Cliente::where(function($query) use ($busqueda) {
+                $query->where("clientes.nombre","like","%".$busqueda."%")
+                ->orWhere("clientes.apellido","like","%".$busqueda."%");
+            })->get();
+        }
+        
         return response()->json($clientes);
     }
 

@@ -150,12 +150,10 @@ export default {
                 busqueda: this.busqueda
             }
 
-            console.log(params)
-
             let response = await axios.post(API_URL + 'clientes', params);
             this.clientes = response.data
 
-            this.obtenerCliente();
+            //this.obtenerCliente();
         },
 
         altaCliente: async function () {
