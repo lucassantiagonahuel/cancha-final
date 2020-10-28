@@ -22,7 +22,7 @@
 
             <div class="col-12">
                 <div>
-                    <b-card title="Filtro">
+                    <b-card title="Filtro" class="text-uppercase">
                         <form @submit="filtrarCaja">
 
                             <div class="row">
