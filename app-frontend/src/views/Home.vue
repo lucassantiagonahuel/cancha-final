@@ -14,17 +14,17 @@
             </div>
 
             <div class="row mt-5 mb-5">
-                <div class="col-12">
-                    <h1 class="text-center">Modulos del sistema</h1>
+                <div class="col-12" style="background-color: hsl(5, 74%, 55%)">
+                    <h1 class="text-center text-white" >Modulos del sistema</h1>
                 </div>
             </div>
 
             <div class="row mt-5 justify-content-center">
                 <div class="col-3">
                     <div>
-                        <b-card title="Clientes"img-src="/img/clientela.png" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2">
+                        <b-card title="Clientes"img-src="/img/clientela.png" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2 text-danger text-uppercase">
                             <b-card-text>
-                                <strong>Modulo de clientes, agregar editar y eliminar.</strong>
+                                <strong class="text-dark">Modulo de clientes, agregar editar y eliminar.</strong>
                             </b-card-text>
 
                             <div style="text-align: center">
@@ -38,9 +38,9 @@
                 </div>
                 <div class="col-3">
                     <div>
-                        <b-card title="Turnos" img-src="/img/turnosCancha.png" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2">
+                        <b-card title="Turnos" img-src="/img/turnosCancha.png" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2 text-danger text-uppercase">
                             <b-card-text>
-                                <strong>Modulo de turnos, agregar editar y eliminar.</strong>
+                                <strong class="text-dark">Modulo de turnos, agregar editar y eliminar.</strong>
                             </b-card-text>
 
                             <div style="text-align: center">
@@ -53,9 +53,9 @@
                 </div>
                 <div class="col-3">
                     <div>
-                        <b-card title="Caja" img-src="/img/caja-registradora.png" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2">
+                        <b-card title="Caja" img-src="/img/caja-registradora.png" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2 text-danger text-uppercase">
                             <b-card-text>
-                                <strong>Modulo de caja, agregar editar y eliminar.</strong>
+                                <strong class="text-dark">Modulo de caja, agregar editar y eliminar.</strong>
                             </b-card-text>
 
                             <div style="text-align: center">

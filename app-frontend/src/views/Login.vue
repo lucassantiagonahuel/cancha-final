@@ -1,5 +1,5 @@
 <template>
-<div style="background-color: #CCC">
+<div style="background-color: hsl(5, 74%, 55%)">
     <main id="main-wrapper">
 
         <div class="container" id="contenedor_view">
@@ -28,7 +28,7 @@
                                 </b-form-group>
 
                                 <div style="text-align: center;">
-                                    <b-button type="submit" variant="primary">INGRESAR</b-button>
+                                    <b-button type="submit" variant="danger">INGRESAR</b-button>
                                 </div>
                             </b-form>
                         </b-card>
