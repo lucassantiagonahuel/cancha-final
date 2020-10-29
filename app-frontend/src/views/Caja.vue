@@ -20,6 +20,7 @@
                 </div>
             </div>
 
+
             <div class="col-12">
                 <div>
                     <b-card title="Filtro" class="text-uppercase">
