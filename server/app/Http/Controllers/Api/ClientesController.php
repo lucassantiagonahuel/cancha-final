@@ -13,8 +13,8 @@ class ClientesController extends Controller
 {
     public function index(Request $request)
     {   
-        //$response_estructure = new ResponseEstructure();
-        //$response_estructure->set_response(false);
+        $response_estructure = new ResponseEstructure();
+        $response_estructure->set_response(false);
         
         //$busqueda = $request->input("busqueda");
         $clientes = Cliente::all();
