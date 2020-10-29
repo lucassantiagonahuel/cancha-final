@@ -12,12 +12,23 @@ use App\Cliente;
 class ClientesController extends Controller
 {
     public function index(Request $request)
-    {   
-        $response_estructure = new ResponseEstructure();
-        $response_estructure->set_response(false);
+    {
+        $busqueda = trim($request->input("busqueda"));
+
+        $clientes = array();
+
+        if($busqueda == "")
+        {
+            $clientes = Cliente::orderBy("id","desc")->get();
+        }
+        else
+        {
+            $clientes = Cliente::where(function($query) use ($busqueda) {
+                $query->where("clientes.nombre","like","%".$busqueda."%")
+                ->orWhere("clientes.apellido","like","%".$busqueda."%");
+            })->get();
+        }
         
-        //$busqueda = $request->input("busqueda");
-        $clientes = Cliente::all();
         return response()->json($clientes);
         
         //$input = [

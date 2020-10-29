@@ -57,8 +57,8 @@ class TurnosController extends Controller
                 DB::raw("DATE_FORMAT(turnos.created_at,'%d/%m/%Y %H:%i') as fecha_creacion_esp")
             )
             ->leftJoin("clientes","clientes.id","=","turnos.cliente_id")
-            ->where(DB::raw("DATE_FORMAT(turnos.created_at,'%Y/%m/%Y')"),">=",$fechaDesde->format("Y/m/d"))
-            ->where(DB::raw("DATE_FORMAT(turnos.created_at,'%Y/%m/%Y')"),"<=",$fechaHasta->format("Y/m/d"))
+            ->where(DB::raw("DATE_FORMAT(turnos.fecha_hora_desde,'%Y/%m/%d')"),">=",$fechaDesde->format("Y/m/d"))
+            ->where(DB::raw("DATE_FORMAT(turnos.fecha_hora_desde,'%Y/%m/%d')"),"<=",$fechaHasta->format("Y/m/d"))
             ->orderBy("turnos.id","desc")
             ->get();
 

@@ -18,16 +18,9 @@
                     <button class="btn btn-primary" @click="abrirModalAgregar()">
                         Nuevo Cliente
                     </button>
-                    <div class="col-12">
-                    <div>
-                        
-                        <b-card title="Filtro">
-                            <input type="text" placeholder="Buscar Cliente..." v-model="busqueda">
-                            <button class="btn-btn primary" @click="listaClientes">Buscar</button>
-                        </b-card>
-
-                    </div>
-                </div>
+                    <br>
+                    <input type="text" placeholder="Buscar Cliente..." v-model="busqueda">
+                    <button class="btn btn-primary" @click="listaClientes">Buscar</button>
                     <table class="table" id="listado">
                         <thead>
                             <tr>
@@ -47,13 +40,9 @@
                                 <td>{{cliente.telefono}}</td>
                                 <td>{{cliente.domicilio}}</td>
                                 <td>
-                                    <button class="btn btn-info" @click="abrirModalEditar(cliente.id)">
-                                        Editar
-                                    </button>
+                                    <button class="btn btn-info" @click="abrirModalEditar(cliente.id)">Editar</button>
                                     &nbsp;&nbsp;
-                                    <button class="btn btn-danger" @click="abrirModalEliminar(cliente.id)">
-                                        Eliminar
-                                    </button>
+                                    <button class="btn btn-danger" @click="abrirModalEliminar(cliente.id)">Eliminar</button>
                                 </td>
                             </tr>
 
@@ -166,6 +155,50 @@ export default {
 
       this.obtenerCliente();
     },
+<<<<<<< HEAD
+=======
+    methods: {
+
+        abrirModalAgregar() {
+
+            this.nombre_agregar = "";
+            this.apellido_agregar = "";
+            this.telefono_agregar = "";
+            this.domicilio_agregar = "";
+
+            this.$refs['modal_agregar'].show()
+        },
+
+        listaClientes: async function () {
+
+            let params = {
+                busqueda: this.busqueda
+            }
+
+            let response = await axios.post(API_URL + 'clientes', params);
+            this.clientes = response.data
+
+            //this.obtenerCliente();
+        },
+
+        altaCliente: async function () {
+            let params = {
+                nombre: this.nombre_agregar,
+                apellido: this.apellido_agregar,
+                telefono: this.telefono_agregar,
+                domicilio: this.domicilio_agregar,
+
+            }
+            let response = await axios.post(API_URL + 'clientes/store', params);
+
+            let respuesta_servidor = response.data;
+
+            if (respuesta_servidor.response == true) {
+                this.$refs['modal_agregar'].hide()
+                this.listaClientes();
+            } else {
+                let mensajes_errores = "";
+>>>>>>> 23c420901eaa0940e315ea7ea2a0df46351e5007
 
     altaCliente: async function () {
       let params = {
