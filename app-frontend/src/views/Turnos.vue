@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="col-12 mt-2">
-                    <table class="table" id="listado">
+                    <table class="table table-hover table-dark" id="listado">
                         <thead>
                             <tr>
                                 <th bgcolor="#FF3F2C"> Id </th>

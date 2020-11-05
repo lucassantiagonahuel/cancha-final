@@ -78,7 +78,7 @@
             <div class="row mt-3">
 
                 <div class="col-12">
-                    <table class="table" id="listado">
+                    <table class="table table-hover table-dark" id="listado">
                         <thead>
                             <tr>
                                 <th bgcolor="#FF3F2C"> Id </th>

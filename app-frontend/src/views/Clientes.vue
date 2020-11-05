@@ -17,9 +17,11 @@
                         Nuevo Cliente
                     </button>
                     <br>
+                    <b-card>
                     <input type="text" placeholder="Buscar Cliente..." v-model="busqueda">
                     <button class="btn btn-primary" @click="listaClientes">Buscar</button>
-                    <table class="table" id="listado">
+                    </b-card>
+                    <table class="table table-hover table-dark" id="listado">
                         <thead>
                             <tr>
                                 <th bgcolor="#FF3F2C"> Id </th>
