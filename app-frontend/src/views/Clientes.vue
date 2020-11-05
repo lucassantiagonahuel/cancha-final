@@ -19,7 +19,8 @@
                     <br>
                     <b-card>
                     <input type="text" placeholder="Buscar Cliente..." v-model="busqueda">
-                    <button class="btn btn-primary" @click="listaClientes">Buscar</button>
+                    <button class="btn btn-primary" @click="listaClientes" >Buscar</button>
+                    
                     </b-card>
                     <table class="table table-hover table-dark" id="listado">
                         <thead>
@@ -40,6 +41,9 @@
                                 <td>{{cliente.telefono}}</td>
                                 <td>{{cliente.domicilio}}</td>
                                 <td>
+                                    <a @click="abrirModalEditar(cliente.id)" class="float-right ml-3">
+                                        <i class="far fa-trash-alt"></i>
+                                    </a>
                                     <button class="btn btn-info" @click="abrirModalEditar(cliente.id)">Editar</button>
                                     &nbsp;&nbsp;
                                     <button class="btn btn-danger" @click="abrirModalEliminar(cliente.id)">Eliminar</button>
