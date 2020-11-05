@@ -22,7 +22,7 @@
             <div class="row mt-5 justify-content-center">
                 <div class="col-3">
                     <div>
-                        <b-card title="Clientes"img-src="/img/clientela.png" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2 text-danger text-uppercase">
+                        <b-card title="Clientes" img-src="/img/clientela.png" img-alt="Image" img-top tag="article" style="max-width: 20rem;" class="mb-2 text-danger text-uppercase">
                             <b-card-text>
                                 <strong class="text-dark">Modulo de clientes, agregar editar y eliminar.</strong>
                             </b-card-text>
