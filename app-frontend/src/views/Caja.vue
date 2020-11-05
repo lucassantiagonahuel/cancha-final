@@ -100,9 +100,13 @@
                                 </td>
                                 <td>{{row.fecha_caja}}</td>
                                 <td>
-                                    <button class="btn btn-info" @click="abrirModalEditar(row.id)">Editar</button>
+                                    <b-button class="btn btn-info" @click="abrirModalEditar(row.id)">
+                                         <b-icon icon="pencil-square">Editar</b-icon>
+                                    </b-button>
                                     &nbsp;&nbsp;
-                                    <button class="btn btn-danger" @click="abrirModalEliminar(row.id)">Eliminar</button>
+                                    <b-button class="btn btn-danger" @click="abrirModalEliminar(row.id)">
+                                        <b-icon icon="trash-fill">Eliminar</b-icon>
+                                    </b-button> 
                                 </td>
                             </tr>
 
@@ -141,9 +145,15 @@
     </b-modal>
 
     <b-modal id="modal_eliminar" ref="modal_eliminar" hide-footer title="Eliminar">
+         
         <div class="d-block text-center">
             <p>¿Esta seguro desea eliminar el registro seleccionado?</p>
         </div>
+        <b-row class="text-md-center">
+            <b-col>
+                <b-icon icon="exclamation-circle" animation="throb" font-scale="4" variant="danger"></b-icon>
+            </b-col>
+        </b-row>
         <b-button class="mt-2" variant="outline-danger" block @click="eliminarCaja()">Aceptar</b-button>
     </b-modal>
 
