@@ -17,9 +17,12 @@
                         Nuevo Cliente
                     </button>
                     <br>
+                    <b-card>
                     <input type="text" placeholder="Buscar Cliente..." v-model="busqueda">
-                    <button class="btn btn-primary" @click="listaClientes">Buscar</button>
-                    <table class="table" id="listado">
+                    <button class="btn btn-primary" @click="listaClientes" >Buscar</button>
+                    
+                    </b-card>
+                    <table class="table table-hover table-dark" id="listado">
                         <thead>
                             <tr>
                                 <th bgcolor="#FF3F2C"> Id </th>
@@ -38,9 +41,14 @@
                                 <td>{{cliente.telefono}}</td>
                                 <td>{{cliente.domicilio}}</td>
                                 <td>
-                                    <button class="btn btn-info" @click="abrirModalEditar(cliente.id)">Editar</button>
+                                    
+                                    <b-button class="btn btn-info" @click="abrirModalEditar(cliente.id)">
+                                         <b-icon icon="pencil-square">Editar</b-icon>
+                                    </b-button>
                                     &nbsp;&nbsp;
-                                    <button class="btn btn-danger" @click="abrirModalEliminar(cliente.id)">Eliminar</button>
+                                    <b-button class="btn btn-danger" @click="abrirModalEliminar(cliente.id)">
+                                        <b-icon icon="trash-fill">Eliminar</b-icon>
+                                    </b-button>
                                 </td>
                             </tr>
 
@@ -88,6 +96,11 @@
         <div class="d-block text-center">
             <p>¿Esta seguro desea eliminar el cliente seleccionado?</p>
         </div>
+        <b-row class="text-md-center">
+            <b-col>
+                <b-icon icon="exclamation-circle" animation="throb" font-scale="4" variant="danger"></b-icon>
+            </b-col>
+        </b-row>
         <b-button class="mt-2" variant="outline-danger" block @click="eliminarCliente()">Aceptar</b-button>
     </b-modal>
 

@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="col-12 mt-2">
-                    <table class="table" id="listado">
+                    <table class="table table-hover table-dark" id="listado">
                         <thead>
                             <tr>
                                 <th bgcolor="#FF3F2C"> Id </th>
@@ -63,9 +63,13 @@
                                 <td>{{turno.fecha_hasta_esp}}</td>
                                 <td>{{turno.fecha_creacion_esp}}</td>
                                 <td>
-                                    <button class="btn btn-info" @click="abrirModalEditar(turno.id)">Editar</button>
+                                    <b-button class="btn btn-info" @click="abrirModalEditar(turno.id)">
+                                         <b-icon icon="pencil-square">Editar</b-icon>
+                                    </b-button>
                                     &nbsp;&nbsp;
-                                    <button class="btn btn-danger" @click="abrirModalEliminar(turno.id)">Eliminar</button>
+                                    <b-button class="btn btn-danger" @click="abrirModalEliminar(turno.id)">
+                                        <b-icon icon="trash-fill">Eliminar</b-icon>
+                                    </b-button> 
                                 </td>
                             </tr>
 
@@ -113,6 +117,11 @@
         <div class="d-block text-center">
             <p>¿Esta seguro desea eliminar el registro seleccionado?</p>
         </div>
+        <b-row class="text-md-center">
+            <b-col>
+                <b-icon icon="exclamation-circle" animation="throb" font-scale="4" variant="danger"></b-icon>
+            </b-col>
+        </b-row>
         <b-button class="mt-2" variant="outline-danger" block @click="eliminarTurno()">Aceptar</b-button>
     </b-modal>
 

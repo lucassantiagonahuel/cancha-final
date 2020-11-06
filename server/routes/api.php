@@ -24,7 +24,7 @@ Route::post("/cerrarSession",'Api\LoginController@cerrarSession');
 Route::post('/inicio','Api\HomeController@index');
 Route::post('/turnos','Api\TurnosController@index');
 Route::post('/caja','Api\CajaController@index');
-Route::post('/soporte', 'Api\SoporteController@index');
+
 
 /**************** CLIENTES *******************/
 Route::post('/clientes','Api\ClientesController@index');
