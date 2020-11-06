@@ -27,6 +27,10 @@
                     CAJA
                 </router-link>
 
+                <router-link to="/soporte" class="nav-item nav-link">
+                    SOPORTE
+                </router-link>
+
             </b-navbar-nav>
 
             <!-- Right aligned nav items -->
