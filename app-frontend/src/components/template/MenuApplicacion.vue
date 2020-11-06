@@ -33,7 +33,7 @@
             <b-navbar-nav class="ml-auto">
 
                 <!-- Using 'button-content' slot -->
-                <button @click="cerrarSesion">
+                <button @click="cerrarSesion" style="background-color: #000;">
                     <img src="img/apagado.png" alt="" style="width: 30px;">
                 </button>
             </b-navbar-nav>
