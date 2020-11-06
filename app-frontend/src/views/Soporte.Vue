@@ -13,7 +13,15 @@
         <p>Alejandro Diaz</p>
         <a class="btn btn-primary btn-lg" href="https://wa.link/zuputg" role="button">Whatsapp</a>
     </div>
-    
+    <div>
+        <VueTailwindPicker
+            @change="(v) => checkin = v"
+        >
+            <input type="text" v-model="checkin" />
+        </VueTailwindPicker>
+    </div>
+
+
 </div>
 </template>
 
@@ -25,9 +33,10 @@ export default {
   name: "Soporte",
   components: {
     MenuApplicacion,
+    VueTailwindPicker
   },
   data: function () {
-    return {};
+    return {checkin:""};
   },
 };
 </script>
