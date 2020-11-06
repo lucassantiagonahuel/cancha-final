@@ -35,4 +35,9 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'JWT_TOKEN' => [
+        'KEY' => '@everone:tode4.AAAwfYDXZj',
+        'TYPE_HASH' => 'HS256'
+    ]
+
 ];

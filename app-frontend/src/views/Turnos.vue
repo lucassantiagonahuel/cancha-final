@@ -175,6 +175,7 @@ export default {
                 precio: this.precio_agregar,
                 fecha_hora_desde: this.fecha_hora_desde_agregar,
                 fecha_hora_hasta: this.fecha_hora_hasta_agregar,
+                jwt_token: localStorage.getItem("jwt_token")
             }
 
             let response = await axios.post(API_URL + 'turnos/store', params);
@@ -185,13 +186,17 @@ export default {
                 this.$refs['modal_agregar'].hide()
                 this.listaTurnos();
             } else {
-                let mensajes_errores = "";
+                if (respuesta_servidor.login == false) {
+                    location.href = "/";
+                } else {
+                    let mensajes_errores = "";
 
-                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
-                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                    for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+                        mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                    }
+
+                    alert(mensajes_errores);
                 }
-
-                alert(mensajes_errores);
             }
         },
 
@@ -199,6 +204,7 @@ export default {
 
             let params = {
                 id: id_a_editar,
+                jwt_token: localStorage.getItem("jwt_token")
             }
 
             let response = await axios.post(API_URL + 'turnos/get', params);
@@ -215,13 +221,17 @@ export default {
 
                 this.$refs['modal_editar'].show()
             } else {
-                let mensajes_errores = "";
+                if (respuesta_servidor.login == false) {
+                    location.href = "/";
+                } else {
+                    let mensajes_errores = "";
 
-                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
-                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                    for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+                        mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                    }
+
+                    alert(mensajes_errores);
                 }
-
-                alert(mensajes_errores);
             }
         },
 
@@ -233,6 +243,7 @@ export default {
                 precio: this.precio_editar,
                 fecha_hora_desde: this.fecha_hora_desde_editar,
                 fecha_hora_hasta: this.fecha_hora_hasta_editar,
+                jwt_token: localStorage.getItem("jwt_token")
             }
 
             let response = await axios.post(API_URL + 'turnos/edit', params);
@@ -243,13 +254,17 @@ export default {
                 this.$refs['modal_editar'].hide()
                 this.listaTurnos();
             } else {
-                let mensajes_errores = "";
+                if (respuesta_servidor.login == false) {
+                    location.href = "/";
+                } else {
+                    let mensajes_errores = "";
 
-                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
-                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                    for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+                        mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                    }
+
+                    alert(mensajes_errores);
                 }
-
-                alert(mensajes_errores);
             }
         },
 
@@ -262,7 +277,8 @@ export default {
         eliminarTurno: async function () {
 
             let params = {
-                id: this.id_a_eliminar
+                id: this.id_a_eliminar,
+                jwt_token: localStorage.getItem("jwt_token")
             }
 
             let response = await axios.post(API_URL + 'turnos/delete', params);
@@ -274,13 +290,17 @@ export default {
             if (respuesta_servidor.response == true) {
                 this.listaTurnos();
             } else {
-                let mensajes_errores = "";
+                if (respuesta_servidor.login == false) {
+                    location.href = "/";
+                } else {
+                    let mensajes_errores = "";
 
-                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
-                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                    for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+                        mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                    }
+
+                    alert(mensajes_errores);
                 }
-
-                alert(mensajes_errores);
             }
         },
 
@@ -288,7 +308,8 @@ export default {
 
             let params = {
                 fechaDesde: this.fechaDesdeFiltro,
-                fechaHasta: this.fechaHastaFiltro
+                fechaHasta: this.fechaHastaFiltro,
+                jwt_token: localStorage.getItem("jwt_token")
             }
 
             let response = await axios.post(API_URL + 'turnos', params);
@@ -298,13 +319,17 @@ export default {
 
                 this.turnos = respuesta_servidor.data
             } else {
-                let mensajes_errores = "";
+                if (respuesta_servidor.login == false) {
+                    location.href = "/";
+                } else {
+                    let mensajes_errores = "";
 
-                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
-                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                    for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+                        mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                    }
+
+                    alert(mensajes_errores);
                 }
-
-                alert(mensajes_errores);
             }
 
         },

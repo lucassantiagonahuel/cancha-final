@@ -133,11 +133,29 @@ export default {
         },
         listaClientes: async function () {
             let params = {
-                busqueda: this.busqueda
+                busqueda: this.busqueda,
+                jwt_token: localStorage.getItem("jwt_token")
             }
+
             let response = await axios.post(API_URL + 'clientes', params);
-            this.clientes = response.data
-            //this.obtenerCliente();
+
+            let respuesta_servidor = response.data;
+
+            if (respuesta_servidor.response == true) {
+                this.clientes = respuesta_servidor.data
+            } else {
+                if (respuesta_servidor.login == false) {
+                    location.href = "/";
+                } else {
+                    let mensajes_errores = "";
+
+                    for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+                        mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                    }
+
+                    alert(mensajes_errores);
+                }
+            }
         },
         altaCliente: async function () {
             let params = {
@@ -145,6 +163,7 @@ export default {
                 apellido: this.apellido_agregar,
                 telefono: this.telefono_agregar,
                 domicilio: this.domicilio_agregar,
+                jwt_token: localStorage.getItem("jwt_token")
             }
             let response = await axios.post(API_URL + 'clientes/store', params);
             let respuesta_servidor = response.data;
@@ -152,16 +171,23 @@ export default {
                 this.$refs['modal_agregar'].hide()
                 this.listaClientes();
             } else {
-                let mensajes_errores = "";
-                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
-                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                if (respuesta_servidor.login == false) {
+                    location.href = "/";
+                } else {
+                    let mensajes_errores = "";
+
+                    for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+                        mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                    }
+
+                    alert(mensajes_errores);
                 }
-                alert(mensajes_errores);
             }
         },
         abrirModalEditar: async function (id_a_editar) {
             let params = {
                 id: id_a_editar,
+                jwt_token: localStorage.getItem("jwt_token")
             }
             let response = await axios.post(API_URL + 'clientes/get', params);
             let respuesta_servidor = response.data;
@@ -173,11 +199,17 @@ export default {
                 this.domicilio_editar = respuesta_servidor.data.domicilio;
                 this.$refs['modal_editar'].show()
             } else {
-                let mensajes_errores = "";
-                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
-                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                if (respuesta_servidor.login == false) {
+                    location.href = "/";
+                } else {
+                    let mensajes_errores = "";
+
+                    for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+                        mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                    }
+
+                    alert(mensajes_errores);
                 }
-                alert(mensajes_errores);
             }
         },
         editarCliente: async function () {
@@ -187,6 +219,7 @@ export default {
                 apellido: this.apellido_editar,
                 telefono: this.telefono_editar,
                 domicilio: this.domicilio_editar,
+                jwt_token: localStorage.getItem("jwt_token")
             }
             let response = await axios.post(API_URL + 'clientes/edit', params);
             let respuesta_servidor = response.data;
@@ -194,11 +227,17 @@ export default {
                 this.$refs['modal_editar'].hide();
                 this.listaClientes();
             } else {
-                let mensajes_errores = "";
-                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
-                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                if (respuesta_servidor.login == false) {
+                    location.href = "/";
+                } else {
+                    let mensajes_errores = "";
+
+                    for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+                        mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                    }
+
+                    alert(mensajes_errores);
                 }
-                alert(mensajes_errores);
             }
         },
         abrirModalEliminar(id_row_seleccionado) {
@@ -207,7 +246,8 @@ export default {
         },
         eliminarCliente: async function () {
             let params = {
-                id: this.id_a_eliminar
+                id: this.id_a_eliminar,
+                jwt_token: localStorage.getItem("jwt_token")
             }
             let response = await axios.post(API_URL + 'clientes/delete', params);
             let respuesta_servidor = response.data;
@@ -215,11 +255,17 @@ export default {
             if (respuesta_servidor.response == true) {
                 this.listaClientes();
             } else {
-                let mensajes_errores = "";
-                for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
-                    mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                if (respuesta_servidor.login == false) {
+                    location.href = "/";
+                } else {
+                    let mensajes_errores = "";
+
+                    for (let i = 0; i < respuesta_servidor.messages_errors.length; i++) {
+                        mensajes_errores = mensajes_errores + respuesta_servidor.messages_errors[i] + "\n";
+                    }
+
+                    alert(mensajes_errores);
                 }
-                alert(mensajes_errores);
             }
         },
         //   obtenerCliente: async function () {

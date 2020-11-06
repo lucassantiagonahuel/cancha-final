@@ -19,7 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 */
 
 
-Route::post('/','Api\LoginController@index');
+Route::post('/login','Api\LoginController@index');
+Route::post("/cerrarSession",'Api\LoginController@cerrarSession');
 Route::post('/inicio','Api\HomeController@index');
 Route::post('/turnos','Api\TurnosController@index');
 Route::post('/caja','Api\CajaController@index');

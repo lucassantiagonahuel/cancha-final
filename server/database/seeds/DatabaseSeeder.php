@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ClienteSeed::class);
         $this->call(TurnoSeed::class);
         $this->call(CajaSeed::class);
+        $this->call(JwtTokensSeed::class);
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 }

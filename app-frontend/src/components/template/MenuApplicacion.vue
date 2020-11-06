@@ -33,9 +33,9 @@
             <b-navbar-nav class="ml-auto">
 
                 <!-- Using 'button-content' slot -->
-                <router-link to="/" class="nav-item nav-link">
+                <button @click="cerrarSesion">
                     <img src="img/apagado.png" alt="" style="width: 30px;">
-                </router-link>
+                </button>
             </b-navbar-nav>
         </b-collapse>
     </b-navbar>
@@ -43,6 +43,12 @@
 </template>
 
 <script>
+const axios = require('axios');
+
+import
+API_URL
+from '@/servicios/Api.js'
+
 export default {
     name: 'MenuApplicacion',
     data() {
@@ -50,6 +56,15 @@ export default {
             publicPath: process.env.BASE_URL,
             user: {},
         };
+    },
+    methods: {
+        cerrarSesion: async function () {
+            let response = await axios.post(API_URL + 'cerrarSession', {
+                jwt_token: localStorage.getItem("jwt_token")
+            });
+
+            location.href = "/"
+        }
     },
     components: {
 
