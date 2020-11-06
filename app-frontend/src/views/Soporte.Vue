@@ -1,17 +1,35 @@
 <template>
 <div>
-    <MenuApplicacion></MenuApplicacion>
+        <div>
+        <MenuApplicacion></MenuApplicacion>
+    </div>
 
-    <main id="main-wrapper">
-        <div class="container" id="contenedor_view">
-            <div class="row mt-3">
-                <div class="col-12">
-                    <h2 class="title-view">Clientes.</h2>
-                </div>
-            </div>
-        </div>
-        
-    </main>
+    <div class="jumbotron">
+        <h1 class="display-4">Contactanos</h1>
+        <p class="lead"></p>
+        <hr class="my-4">
+        <p>Lucas Nahuel</p>
+        <p>Mario Olivera</p>
+        <p>Alejandro Diaz</p>
+        <a class="btn btn-primary btn-lg" href="https://wa.link/zuputg" role="button">Whatsapp</a>
+    </div>
+    
 </div>
+</template>
+
+<script>
+import MenuApplicacion from "@/components/template/MenuApplicacion.vue";
+import API_URL from "@/servicios/Api.js";
+const axios = require("axios");
+export default {
+  name: "Soporte",
+  components: {
+    MenuApplicacion,
+  },
+  data: function () {
+    return {};
+  },
+};
+</script>
 
 

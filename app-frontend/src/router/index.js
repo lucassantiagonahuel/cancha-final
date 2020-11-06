@@ -7,6 +7,7 @@ import Home from '../views/Home.vue'
 import Clientes from '../views/Clientes.vue'
 import Turnos from '../views/Turnos.vue'
 import Caja from '../views/Caja.vue'
+import Soporte from '../views/Soporte.vue'
 
 Vue.use(VueRouter)
 
@@ -35,6 +36,11 @@ const routes = [
     path: '/caja',
     name: 'Caja',
     component: Caja
+  },
+  {
+    path: '/soporte',
+    name: 'Soporte',
+    component: Soporte
   },
 ]
 
