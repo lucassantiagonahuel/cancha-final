@@ -89,7 +89,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(row,index) in ListadoCaja">
+                            <tr v-for = "(row, index) in ListadoCaja">
                                 <td>{{row.id}}</td>
                                 <td>{{row.descripcion}}</td>
                                 <td>{{row.id_turno}}</td>
