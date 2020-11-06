@@ -1,6 +1,6 @@
 <template>
 <div>
-        <div>
+    <div>
         <MenuApplicacion></MenuApplicacion>
     </div>
 
@@ -13,14 +13,6 @@
         <p>Alejandro Diaz</p>
         <a class="btn btn-primary btn-lg" href="https://wa.link/zuputg" role="button">Whatsapp</a>
     </div>
-    <div>
-        <VueTailwindPicker
-            @change="(v) => checkin = v"
-        >
-            <input type="text" v-model="checkin" />
-        </VueTailwindPicker>
-    </div>
-
 
 </div>
 </template>
@@ -28,17 +20,20 @@
 <script>
 import MenuApplicacion from "@/components/template/MenuApplicacion.vue";
 import API_URL from "@/servicios/Api.js";
+
 const axios = require("axios");
 export default {
-  name: "Soporte",
-  components: {
-    MenuApplicacion,
-    VueTailwindPicker
-  },
-  data: function () {
-    return {checkin:""};
-  },
+    name: "Soporte",
+    components: {
+        MenuApplicacion
+    },
+    data: function () {
+        return {
+
+        }
+    },
+    methods: {
+
+    }
 };
 </script>
-
-

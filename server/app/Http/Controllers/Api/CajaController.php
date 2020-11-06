@@ -30,8 +30,8 @@ class CajaController extends BaseApiController
             ];
 
             $rules = [
-                "fecha_desde"=>"required|date_format:d/m/Y",
-                "fecha_hasta"=>"required|date_format:d/m/Y",
+                "fecha_desde"=>"required|date_format:Y-m-d",
+                "fecha_hasta"=>"required|date_format:Y-m-d",
             ];
 
             $validator = Validator::make($input, $rules);
@@ -63,17 +63,14 @@ class CajaController extends BaseApiController
                 $ganancias = (int) $ganancias[0]->ganancias;
 
 
-                $fechaDesde = \DateTime::createFromFormat("d/m/Y",$fechaDesde);
-                $fechaHasta = \DateTime::createFromFormat("d/m/Y",$fechaHasta);
-
                 $caja = DB::table("caja")
                 ->select(
                         "caja.*",
                         DB::raw("DATE_FORMAT(caja.fecha,'%d/%m/%Y %H:%i') as fecha_caja"),
                         DB::raw("DATE_FORMAT(caja.created_at,'%d/%m/%Y %H:%i') as fecha_creacion_esp")
                         )
-                ->where(DB::raw("DATE_FORMAT(caja.fecha,'%Y/%m/%d')"),">=",$fechaDesde->format("Y/m/d"))
-                ->where(DB::raw("DATE_FORMAT(caja.fecha,'%Y/%m/%d')"),"<=",$fechaHasta->format("Y/m/d"))        
+                ->where(DB::raw("DATE_FORMAT(caja.fecha,'%Y-%m-%d')"),">=",$fechaDesde)
+                ->where(DB::raw("DATE_FORMAT(caja.fecha,'%Y-%m-%d')"),"<=",$fechaHasta)        
                 ->orderBy("caja.id","desc")
                 ->get();
 

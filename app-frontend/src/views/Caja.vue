@@ -26,13 +26,13 @@
                         <form @submit="filtrarCaja">
 
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <label for="fecha_desde"><strong>Desde</strong></label>
-                                    <input type="text" class="form-control" id="fecha_desde" v-model="fechaDesdeFiltro">
+                                    <b-calendar style="width: 100%;" v-model="fechaDesdeFiltro" @context="onContext" locale="es" v-show="true" :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"></b-calendar>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <label for="fecha_hasta"><strong>Hasta</strong></label>
-                                    <input type="text" class="form-control" id="fecha_hasta" v-model="fechaHastaFiltro">
+                                    <b-calendar style="width: 100%;" v-model="fechaHastaFiltro" @context="onContext" locale="es" v-show="true" :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"></b-calendar>
                                 </div>
                                 <div class="col-md-1">
                                     <label for="">&nbsp;</label><br>
@@ -100,12 +100,12 @@
                                 <td>{{row.fecha_caja}}</td>
                                 <td>
                                     <b-button class="btn btn-info" @click="abrirModalEditar(row.id)">
-                                         <b-icon icon="pencil-square">Editar</b-icon>
+                                        <b-icon icon="pencil-square">Editar</b-icon>
                                     </b-button>
                                     &nbsp;&nbsp;
                                     <b-button class="btn btn-danger" @click="abrirModalEliminar(row.id)">
                                         <b-icon icon="trash-fill">Eliminar</b-icon>
-                                    </b-button> 
+                                    </b-button>
                                 </td>
                             </tr>
 
@@ -144,7 +144,7 @@
     </b-modal>
 
     <b-modal id="modal_eliminar" ref="modal_eliminar" hide-footer title="Eliminar">
-         
+
         <div class="d-block text-center">
             <p>¿Esta seguro desea eliminar el registro seleccionado?</p>
         </div>
@@ -198,9 +198,17 @@ export default {
             totalVentas: "Calculando...",
             totalGanancias: "Calculando...",
             totalGastos: "Calculando...",
+
+            fechaDesdeCalendar: '',
+            context: null
         }
     },
     methods: {
+
+        onContext(ctx) {
+            console.log(ctx)
+            this.context = ctx
+        },
 
         abrirModalAgregar() {
 
@@ -391,12 +399,12 @@ export default {
 
         validateFechaEsp: function (fecha) {
 
-            let partes_fecha = fecha.split("/")
+            let partes_fecha = fecha.split("-")
 
             if (partes_fecha.length == 3) {
-                let dia = parseInt(partes_fecha[0])
+                let dia = parseInt(partes_fecha[2])
                 let mes = parseInt(partes_fecha[1])
-                let anio = parseInt(partes_fecha[2])
+                let anio = parseInt(partes_fecha[0])
 
                 if (isNaN(dia) || isNaN(mes) || isNaN(anio)) {
                     return false
