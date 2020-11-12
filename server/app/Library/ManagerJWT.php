@@ -2,7 +2,6 @@
 namespace App\Library;
 
 use App\JwtTokens;
-
 use Firebase\JWT\JWT;
 
 class ManagerJWT

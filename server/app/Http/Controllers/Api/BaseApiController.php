@@ -7,10 +7,6 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-use GuzzleHttp;
-use App\JwtToApi;
-use Firebase\JWT\JWT;
-
 use App\Library\ManagerJWT;
 
 class BaseApiController extends BaseController

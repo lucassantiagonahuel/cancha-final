@@ -19,8 +19,6 @@ class ResponseEstructure
 		);
 
 		$this->login = false;
-
-		$this->private = array();
 	}
 
 	public function set_response($response)
