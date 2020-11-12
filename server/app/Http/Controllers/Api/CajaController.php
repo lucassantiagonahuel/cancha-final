@@ -82,8 +82,8 @@ class CajaController extends BaseApiController
 
                 if(trim($fechaDesde) != "" && trim($fechaHasta) != "")
                 {
-                    $caja = $caja->where(DB::raw("DATE_FORMAT(caja.fecha,'%Y/%m/%d')"),">=",$fechaDesde)
-                    ->where(DB::raw("DATE_FORMAT(caja.fecha,'%Y/%m/%d')"),"<=",$fechaHasta)   ;
+                    $caja = $caja->where(DB::raw("DATE_FORMAT(caja.fecha,'%Y-%m-%d')"),">=",$fechaDesde)
+                    ->where(DB::raw("DATE_FORMAT(caja.fecha,'%Y-%m-%d')"),"<=",$fechaHasta)   ;
                 }
                      
                 $caja = $caja->orderBy("caja.id","desc")
