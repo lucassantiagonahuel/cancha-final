@@ -31,8 +31,8 @@ class TurnosController extends BaseApiController
             ];
 
             $rules = [
-                "fecha_desde"=>"required|required|date_format:d/m/Y",
-                "fecha_hasta"=>"required|required|date_format:d/m/Y",
+                //"fecha_desde"=>"required|required|date_format:d/m/Y",
+                //"fecha_hasta"=>"required|required|date_format:d/m/Y",
             ];
 
             $validator = Validator::make($input, $rules);
@@ -48,8 +48,11 @@ class TurnosController extends BaseApiController
             }
             else
             {
-                $fechaDesde = \DateTime::createFromFormat("d/m/Y",$fechaDesde);
-                $fechaHasta = \DateTime::createFromFormat("d/m/Y",$fechaHasta);
+                if(trim($fechaDesde) != "" && trim($fechaHasta) != "")
+                {
+                    //$fechaDesde = \DateTime::createFromFormat("d/m/Y",$fechaDesde);
+                    //$fechaHasta = \DateTime::createFromFormat("d/m/Y",$fechaHasta);
+                }
 
                 $turnos = DB::table("turnos")
                 ->select(
@@ -60,10 +63,15 @@ class TurnosController extends BaseApiController
                     DB::raw("DATE_FORMAT(turnos.fecha_hora_hasta,'%d/%m/%Y %H:%i') as fecha_hasta_esp"),
                     DB::raw("DATE_FORMAT(turnos.created_at,'%d/%m/%Y %H:%i') as fecha_creacion_esp")
                 )
-                ->leftJoin("clientes","clientes.id","=","turnos.cliente_id")
-                ->where(DB::raw("DATE_FORMAT(turnos.fecha_hora_desde,'%Y/%m/%d')"),">=",$fechaDesde->format("Y/m/d"))
-                ->where(DB::raw("DATE_FORMAT(turnos.fecha_hora_desde,'%Y/%m/%d')"),"<=",$fechaHasta->format("Y/m/d"))
-                ->orderBy("turnos.id","desc")
+                ->leftJoin("clientes","clientes.id","=","turnos.cliente_id");
+
+                if(trim($fechaDesde) != "" && trim($fechaHasta) != "")
+                {
+                    $turnos = $turnos->where(DB::raw("DATE_FORMAT(turnos.fecha_hora_desde,'%Y-%m-%d')"),">=",$fechaDesde)
+                    ->where(DB::raw("DATE_FORMAT(turnos.fecha_hora_desde,'%Y-%m-%d')"),"<=",$fechaHasta);
+                }
+                
+                $turnos = $turnos->orderBy("turnos.id","desc")
                 ->get();
 
                 $response_estructure->set_data($turnos);

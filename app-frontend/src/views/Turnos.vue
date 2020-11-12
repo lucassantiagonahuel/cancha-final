@@ -23,13 +23,13 @@
                             <form @submit="filtrarTurnos">
 
                                 <div class="row">
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <label for="fecha_desde">Desde</label>
-                                        <input type="text" class="form-control" id="fecha_desde" v-model="fechaDesdeFiltro">
+                                        <b-calendar style="width: 100%;" v-model="fechaDesdeFiltro" @context="onContext" locale="es" v-show="true" :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"></b-calendar>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <label for="fecha_hasta">Hasta</label>
-                                        <input type="text" class="form-control" id="fecha_hasta" v-model="fechaHastaFiltro">
+                                        <b-calendar style="width: 100%;" v-model="fechaHastaFiltro" @context="onContext" locale="es" v-show="true" :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"></b-calendar>
                                     </div>
                                     <div class="col-md-1">
                                         <label for="">&nbsp;</label><br>
@@ -64,12 +64,12 @@
                                 <td>{{turno.fecha_creacion_esp}}</td>
                                 <td>
                                     <b-button class="btn btn-info" @click="abrirModalEditar(turno.id)">
-                                         <b-icon icon="pencil-square">Editar</b-icon>
+                                        <b-icon icon="pencil-square">Editar</b-icon>
                                     </b-button>
                                     &nbsp;&nbsp;
                                     <b-button class="btn btn-danger" @click="abrirModalEliminar(turno.id)">
                                         <b-icon icon="trash-fill">Eliminar</b-icon>
-                                    </b-button> 
+                                    </b-button>
                                 </td>
                             </tr>
 
@@ -100,7 +100,6 @@
             <b-form-group label="Precio:" label-for="input-vertical" label-align="left">
                 <b-form-input v-model="precio_editar" placeholder="PRECIO" class="mt-2"></b-form-input>
             </b-form-group>
-            
 
             <b-form-group label="DESDE:" label-for="input-vertical" label-align="left">
                 <b-form-input v-model="fecha_hora_desde_editar" placeholder="FECHA HORA DESDE" class="mt-2"></b-form-input>
@@ -161,8 +160,8 @@ export default {
             id_a_editar: "",
             id_a_eliminar: "",
 
-            fechaDesdeFiltro: "01/01/2020",
-            fechaHastaFiltro: "01/12/2020",
+            fechaDesdeFiltro: "",
+            fechaHastaFiltro: "",
         }
     },
     methods: {
@@ -355,12 +354,12 @@ export default {
 
         validateFechaEsp: function (fecha) {
 
-            let partes_fecha = fecha.split("/")
+            let partes_fecha = fecha.split("-")
 
             if (partes_fecha.length == 3) {
-                let dia = parseInt(partes_fecha[0])
+                let dia = parseInt(partes_fecha[2])
                 let mes = parseInt(partes_fecha[1])
-                let anio = parseInt(partes_fecha[2])
+                let anio = parseInt(partes_fecha[0])
 
                 if (isNaN(dia) || isNaN(mes) || isNaN(anio)) {
                     return false

@@ -89,7 +89,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for = "(row, index) in ListadoCaja">
+                            <tr v-for="(row, index) in ListadoCaja">
                                 <td>{{row.id}}</td>
                                 <td>{{row.descripcion}}</td>
                                 <td>{{row.id_turno}}</td>
@@ -192,8 +192,8 @@ export default {
             id_a_editar: "",
             id_a_eliminar: "",
 
-            fechaDesdeFiltro: "01/01/2020",
-            fechaHastaFiltro: "01/12/2020",
+            fechaDesdeFiltro: "",
+            fechaHastaFiltro: "",
 
             totalVentas: "Calculando...",
             totalGanancias: "Calculando...",
@@ -354,6 +354,9 @@ export default {
         },
 
         listaCaja: async function () {
+
+            console.log(this.fechaDesdeFiltro);
+            console.log(this.fechaHastaFiltro);
 
             let params = {
                 fechaDesde: this.fechaDesdeFiltro,

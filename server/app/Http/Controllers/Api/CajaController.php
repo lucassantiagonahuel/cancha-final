@@ -30,8 +30,8 @@ class CajaController extends BaseApiController
             ];
 
             $rules = [
-                "fecha_desde"=>"required|date_format:Y-m-d",
-                "fecha_hasta"=>"required|date_format:Y-m-d",
+                //"fecha_desde"=>"required|date_format:d/m/Y",
+                //"fecha_hasta"=>"required|date_format:d/m/Y",
             ];
 
             $validator = Validator::make($input, $rules);
@@ -62,16 +62,30 @@ class CajaController extends BaseApiController
                 $ganancias = DB::select("SELECT sum(total) as ganancias  FROM caja");
                 $ganancias = (int) $ganancias[0]->ganancias;
 
+                if(trim($fechaDesde) != "" && trim($fechaHasta) != "")
+                {
+
+                    $fechaDesde = \DateTime::createFromFormat("d/m/Y",$fechaDesde);
+                    $fechaDesde = $fechaDesde->format("Y/m/d");
+    
+                    $fechaHasta = \DateTime::createFromFormat("d/m/Y",$fechaHasta);
+                    $fechaHasta = $fechaHasta->format("Y/m/d");
+                }
 
                 $caja = DB::table("caja")
                 ->select(
                         "caja.*",
                         DB::raw("DATE_FORMAT(caja.fecha,'%d/%m/%Y %H:%i') as fecha_caja"),
                         DB::raw("DATE_FORMAT(caja.created_at,'%d/%m/%Y %H:%i') as fecha_creacion_esp")
-                        )
-                ->where(DB::raw("DATE_FORMAT(caja.fecha,'%Y-%m-%d')"),">=",$fechaDesde)
-                ->where(DB::raw("DATE_FORMAT(caja.fecha,'%Y-%m-%d')"),"<=",$fechaHasta)        
-                ->orderBy("caja.id","desc")
+                );
+
+                if(trim($fechaDesde) != "" && trim($fechaHasta) != "")
+                {
+                    $caja = $caja->where(DB::raw("DATE_FORMAT(caja.fecha,'%Y/%m/%d')"),">=",$fechaDesde)
+                    ->where(DB::raw("DATE_FORMAT(caja.fecha,'%Y/%m/%d')"),"<=",$fechaHasta)   ;
+                }
+                     
+                $caja = $caja->orderBy("caja.id","desc")
                 ->get();
 
                 $datos_respuesta = array(
