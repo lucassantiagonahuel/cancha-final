@@ -20,6 +20,7 @@ class Turnos extends Migration
             $table->double("precio");
             $table->datetime("fecha_hora_desde");
             $table->datetime("fecha_hora_hasta");
+            $table->enum("estado",["pendiente","realizado","cancelado"])->default("pendiente");
             $table->timestamps();
         });
     }
