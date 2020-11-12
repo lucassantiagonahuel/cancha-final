@@ -100,7 +100,7 @@
             <b-form-group label="Precio:" label-for="input-vertical" label-align="left">
                 <b-form-input v-model="precio_editar" placeholder="PRECIO" class="mt-2"></b-form-input>
             </b-form-group>
-            </b-form-group>
+            
 
             <b-form-group label="DESDE:" label-for="input-vertical" label-align="left">
                 <b-form-input v-model="fecha_hora_desde_editar" placeholder="FECHA HORA DESDE" class="mt-2"></b-form-input>

@@ -79,7 +79,7 @@
             <b-form-group label="Apellido:" label-for="input-vertical" label-align="left">
                 <b-form-input v-model="apellido_editar" placeholder="apellido" class="mt-2"></b-form-input>
             </b-form-group>
-            </b-form-group>
+
 
             <b-form-group label="Teléfono:" label-for="input-vertical" label-align="left">
                 <b-form-input v-model="telefono_editar" placeholder="telefono" class="mt-2"></b-form-input>
