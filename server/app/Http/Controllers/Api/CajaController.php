@@ -64,12 +64,13 @@ class CajaController extends BaseApiController
 
                 if(trim($fechaDesde) != "" && trim($fechaHasta) != "")
                 {
-
-                    $fechaDesde = \DateTime::createFromFormat("d-m-Y",$fechaDesde);
+                    /*
+                    $fechaDesde = \DateTime::createFromFormat("Y-m-d",$fechaDesde);
                     $fechaDesde = $fechaDesde->format("Y-m-d");
     
-                    $fechaHasta = \DateTime::createFromFormat("d-m-Y",$fechaHasta);
+                    $fechaHasta = \DateTime::createFromFormat("Y-m-d",$fechaHasta);
                     $fechaHasta = $fechaHasta->format("Y-m-d");
+                    */
                 }
 
                 $caja = DB::table("caja")
